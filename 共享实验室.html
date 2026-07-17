@@ -1,0 +1,1470 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>共享实验室 - 不凡智库社区</title>
+  <style>
+    :root {
+      --bg: #f3f4f6;
+      --panel: #ffffff;
+      --line: #e3e7ee;
+      --soft: #f8fafc;
+      --text: #222833;
+      --muted: #6d7582;
+      --red: #df1d2d;
+      --red-soft: #fff1f3;
+      --blue: #1677ff;
+      --blue-soft: #eef5ff;
+      --gold: #ffb21a;
+      --green: #15915c;
+      --max: 1240px;
+      --radius: 4px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea { font: inherit; }
+    button { cursor: pointer; }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .topbar-inner {
+      width: min(var(--max), calc(100vw - 40px));
+      height: 58px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 250px minmax(260px, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 34px;
+      border-radius: 4px;
+      border: 1px solid #f0c5ca;
+      background: linear-gradient(135deg, rgba(223, 29, 45, .18), rgba(22, 119, 255, .10)), #fff;
+      display: grid;
+      place-items: center;
+      color: var(--red);
+      font-size: 22px;
+      font-weight: 900;
+    }
+
+    .brand-title {
+      display: block;
+      color: var(--red);
+      font-size: 19px;
+      line-height: 1.05;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .brand-sub {
+      display: block;
+      margin-top: 2px;
+      color: #3c5678;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .search {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 64px;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .search input {
+      width: 100%;
+      height: 32px;
+      border: 1px solid #d9dfe8;
+      border-radius: var(--radius);
+      padding: 0 12px;
+      outline: none;
+      color: var(--text);
+      background: #fff;
+    }
+
+    .search button,
+    .small-btn,
+    .primary-btn {
+      height: 32px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 12px;
+      color: #3d4654;
+      white-space: nowrap;
+      font-weight: 700;
+    }
+
+    .search button,
+    .primary-btn {
+      border-color: var(--red);
+      background: var(--red);
+      color: #fff;
+    }
+
+    .user-tools {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--blue-soft);
+      color: var(--blue);
+      border: 1px solid #d8e7ff;
+      font-weight: 900;
+    }
+
+    .layout {
+      width: min(var(--max), calc(100vw - 40px));
+      margin: 14px auto 48px;
+      display: grid;
+      grid-template-columns: 230px minmax(0, 1fr) 260px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .left-nav {
+      padding: 12px;
+      position: sticky;
+      top: 72px;
+      max-height: calc(100vh - 90px);
+      overflow: auto;
+    }
+
+    .nav-main,
+    .nav-head,
+    .nav-link {
+      min-height: 34px;
+      display: flex;
+      align-items: center;
+      border-radius: var(--radius);
+      padding: 8px 10px;
+    }
+
+    .nav-main {
+      background: var(--soft);
+      color: #323b48;
+      font-weight: 800;
+      margin-bottom: 6px;
+    }
+
+    .nav-main.active,
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--red);
+      background: var(--red-soft);
+      font-weight: 800;
+    }
+
+    .nav-head {
+      margin-top: 8px;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      color: #2f3744;
+      font-weight: 900;
+      justify-content: space-between;
+    }
+
+    .nav-head::after {
+      content: "⌄";
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nav-link {
+      color: #47515f;
+      font-size: 13px;
+      margin: 2px 0;
+    }
+
+    .main {
+      min-width: 0;
+    }
+
+    .breadcrumb {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      background: #fff;
+      border-radius: var(--radius);
+      border: 1px solid #edf0f5;
+    }
+
+    .banner {
+      min-height: 72px;
+      margin-bottom: 12px;
+      border-radius: var(--radius);
+      overflow: hidden;
+      color: #fff;
+      background:
+        radial-gradient(circle at 18% 50%, rgba(255, 227, 119, .95) 0 3px, transparent 4px),
+        radial-gradient(circle at 84% 25%, rgba(255, 227, 119, .85) 0 4px, transparent 5px),
+        linear-gradient(90deg, #0054d9, #0087ff 48%, #0c58d6);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 170px;
+      align-items: center;
+      padding: 12px 22px;
+    }
+
+    .banner strong {
+      display: block;
+      font-size: 24px;
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .banner span {
+      color: rgba(255, 255, 255, .9);
+      font-weight: 700;
+    }
+
+    .coin-box {
+      justify-self: end;
+      width: 112px;
+      height: 46px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #ffcf47, #ff8d19);
+      color: #8a3b00;
+      font-weight: 900;
+      transform: rotate(-7deg);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, .16);
+    }
+
+    .composer {
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .composer textarea {
+      width: 100%;
+      min-height: 86px;
+      resize: vertical;
+      border: 1px solid #d9dfe8;
+      border-radius: var(--radius);
+      padding: 11px;
+      outline: none;
+    }
+
+    .composer textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(22, 119, 255, .11);
+    }
+
+    .composer-actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .quick-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .hot-news {
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .block-title {
+      margin: 0 0 10px;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .news-item {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr);
+      gap: 8px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+      align-items: center;
+    }
+
+    .news-item:last-child {
+      border-bottom: 0;
+    }
+
+    .news-label {
+      height: 22px;
+      border: 1px solid var(--red);
+      color: var(--red);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .tabs-panel {
+      padding: 0;
+      min-height: 350px;
+    }
+
+    .lab-tabs {
+      height: 48px;
+      padding: 0 14px;
+      display: flex;
+      gap: 28px;
+      align-items: end;
+      border-bottom: 1px solid #d6dce6;
+    }
+
+    .tab-btn {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      height: 48px;
+      padding: 0 0 11px;
+      position: relative;
+      color: #172033;
+      font-weight: 800;
+    }
+
+    .tab-btn::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: transparent;
+    }
+
+    .tab-btn.active {
+      color: var(--blue);
+    }
+
+    .tab-btn.active::after {
+      background: var(--blue);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 14px;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .post {
+      display: grid;
+      grid-template-columns: 40px minmax(0, 1fr) auto;
+      gap: 10px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .post:last-child {
+      border-bottom: 0;
+    }
+
+    .post h3 {
+      margin: 0 0 5px;
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .post p {
+      margin: 0;
+      color: #4a5565;
+    }
+
+    .post-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .tag {
+      min-width: fit-content;
+      height: 24px;
+      padding: 0 8px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: inline-flex;
+      align-items: center;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      padding: 3px 8px;
+      border: 1px solid #d9e8ff;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font-weight: 800;
+      font-size: 12px;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 18px;
+    }
+
+    .hint {
+      margin: 0 0 12px;
+      color: var(--muted);
+    }
+
+    .notice {
+      margin: 10px 0 14px;
+      padding: 10px 12px;
+      border: 1px solid #ffd7dc;
+      background: var(--red-soft);
+      color: #8c1721;
+      border-radius: var(--radius);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 12px;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .process {
+      display: grid;
+      gap: 8px;
+      counter-reset: step;
+      margin-top: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 9px;
+      align-items: start;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px;
+      background: #fff;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      color: var(--red);
+      background: var(--red-soft);
+      font-weight: 900;
+    }
+
+    .step strong {
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .step span {
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      margin-top: 10px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 680px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--soft);
+      color: var(--muted);
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 210px;
+      gap: 14px;
+      align-items: start;
+    }
+
+    .booking-subtabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .booking-subtab {
+      height: 32px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      color: #3d4654;
+      padding: 0 12px;
+      font-weight: 800;
+    }
+
+    .booking-subtab.active {
+      color: var(--blue);
+      background: var(--blue-soft);
+      border-color: #d9e8ff;
+    }
+
+    .booking-section {
+      display: none;
+    }
+
+    .booking-section.active {
+      display: block;
+    }
+
+    .qr-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: #fff;
+      text-align: center;
+      position: sticky;
+      top: 72px;
+    }
+
+    .qr {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 10px;
+      border: 1px solid #cfd6df;
+      border-radius: var(--radius);
+      background:
+        linear-gradient(90deg, #111 8px, transparent 8px) 0 0 / 18px 18px,
+        linear-gradient(#111 8px, transparent 8px) 0 0 / 18px 18px,
+        #fff;
+      box-shadow: inset 0 0 0 17px #fff;
+      display: grid;
+      place-items: center;
+      color: #111;
+      font-weight: 900;
+    }
+
+    .field-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+      margin-top: 10px;
+    }
+
+    .field {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 10px;
+      background: #fff;
+    }
+
+    .field b {
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .field span {
+      color: var(--muted);
+    }
+
+    .form-section {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px;
+      background: #fff;
+      margin-top: 12px;
+    }
+
+    .form-section h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .form-field {
+      display: grid;
+      gap: 6px;
+      color: #3f4854;
+      font-weight: 700;
+    }
+
+    .form-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .form-field small {
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .form-field input,
+    .form-field select,
+    .form-field textarea {
+      width: 100%;
+      border: 1px solid #d9dfe8;
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 8px 9px;
+      outline: none;
+      color: var(--text);
+    }
+
+    .form-field textarea {
+      min-height: 74px;
+      resize: vertical;
+    }
+
+    .form-field input:focus,
+    .form-field select:focus,
+    .form-field textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(22, 119, 255, .11);
+    }
+
+    .required {
+      color: var(--red);
+      font-weight: 900;
+    }
+
+    .submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .form-status {
+      display: none;
+      padding: 9px 10px;
+      border-radius: var(--radius);
+      border: 1px solid #c8ecdd;
+      color: #09704d;
+      background: #eaf8f2;
+    }
+
+    .form-status.show {
+      display: block;
+    }
+
+    .right-rail {
+      display: grid;
+      gap: 12px;
+      position: sticky;
+      top: 72px;
+    }
+
+    .rail-card {
+      padding: 12px;
+    }
+
+    .rail-title {
+      margin: 0 0 10px;
+      font-size: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mall-card {
+      display: grid;
+      gap: 8px;
+    }
+
+    .mall-logo {
+      color: var(--red);
+      font-weight: 900;
+      font-size: 17px;
+    }
+
+    .mall-images {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .mall-img {
+      height: 58px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(22, 119, 255, .16), rgba(223, 29, 45, .10)),
+        url("https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&fit=crop&w=400&q=80") center / cover;
+    }
+
+    .mall-img:nth-child(2) {
+      background:
+        linear-gradient(135deg, rgba(22, 119, 255, .10), rgba(223, 29, 45, .14)),
+        url("https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?auto=format&fit=crop&w=400&q=80") center / cover;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .data-box {
+      background: var(--soft);
+      border-radius: var(--radius);
+      padding: 9px;
+      color: var(--muted);
+    }
+
+    .data-box strong {
+      display: block;
+      color: var(--red);
+      font-size: 17px;
+      line-height: 1.2;
+      margin-top: 2px;
+    }
+
+    .topic-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .topic-tags span {
+      height: 25px;
+      border-radius: 999px;
+      padding: 0 9px;
+      display: inline-flex;
+      align-items: center;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      color: #596371;
+      font-size: 12px;
+    }
+
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 8px;
+    }
+
+    .list li {
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      color: #3f4854;
+    }
+
+    .list li:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    @media (max-width: 1120px) {
+      .topbar-inner,
+      .layout {
+        width: min(var(--max), calc(100vw - 24px));
+      }
+
+      .layout {
+        grid-template-columns: 210px minmax(0, 1fr);
+      }
+
+      .right-rail {
+        grid-column: 1 / -1;
+        position: static;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 780px) {
+      .topbar-inner {
+        height: auto;
+        padding: 10px 0;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .left-nav {
+        position: static;
+        max-height: none;
+      }
+
+      .right-rail,
+      .grid-2,
+      .field-list,
+      .form-grid,
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .banner {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .coin-box {
+        justify-self: start;
+      }
+
+      .lab-tabs {
+        overflow-x: auto;
+      }
+
+      .tab-btn {
+        white-space: nowrap;
+      }
+
+      .post {
+        grid-template-columns: 36px minmax(0, 1fr);
+      }
+
+      .post .tag {
+        grid-column: 2;
+        width: fit-content;
+      }
+
+      .qr-card {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="不凡智库工程师社区首页原型.html">
+        <span class="brand-mark">不</span>
+        <span>
+          <span class="brand-title">不凡智库社区</span>
+          <span class="brand-sub">工程师问答与硬科技测试资源</span>
+        </span>
+      </a>
+      <div class="search">
+        <input type="search" placeholder="搜索技术问题、文章、项目" />
+        <button type="button">搜索</button>
+      </div>
+      <div class="user-tools">
+        <span>合众芯天下通</span>
+        <a href="账户明细.html">项目管理</a>
+        <a class="avatar" href="我的主页.html">陈</a>
+        <button class="small-btn" type="button">admin</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="panel left-nav">
+      <a class="nav-main" href="不凡智库工程师社区首页原型.html">全部</a>
+
+      <div class="nav-head">低创作技术交流</div>
+      <a class="nav-link" href="#">行业展会</a>
+      <a class="nav-link" href="#">行业论坛</a>
+      <a class="nav-link" href="#">投融资讯</a>
+      <a class="nav-link" href="#">IPO 上市资讯</a>
+      <a class="nav-link" href="#">具身智能机器人</a>
+      <a class="nav-link" href="#">科技资讯</a>
+
+      <div class="nav-head">硬核技术块</div>
+      <a class="nav-link" href="#">研发技术</a>
+      <a class="nav-link" href="#">生产技术</a>
+      <a class="nav-link" href="#">品质测试</a>
+      <a class="nav-link" href="#">实验室技术</a>
+      <a class="nav-link" href="#">精密制造</a>
+
+      <div class="nav-head">共享实验室</div>
+      <a class="nav-link" href="#">不凡总部实验室</a>
+      <a class="nav-link active" href="共享实验室.html">高校实验室</a>
+      <a class="nav-link" href="#">爱心企业实验室</a>
+
+      <div class="nav-head">沙龙板块</div>
+      <a class="nav-link" href="#">线下沙龙</a>
+      <a class="nav-link" href="#">线上沙龙</a>
+      <a class="nav-link" href="#">产业论坛</a>
+      <a class="nav-link" href="#">学术论坛</a>
+
+      <div class="nav-head">创新服务商</div>
+      <a class="nav-link" href="#">专利服务</a>
+      <a class="nav-link" href="#">数字化服务</a>
+      <a class="nav-link" href="#">3D打印服务</a>
+      <a class="nav-link" href="#">电子方案开发</a>
+      <a class="nav-link" href="#">检测服务</a>
+    </aside>
+
+    <main class="main">
+      <div class="breadcrumb">当前位置：共享实验室 &gt; 高校实验室</div>
+
+      <section class="banner">
+        <div>
+          <strong>共享实验室预约试运行</strong>
+          <span>扫码添加实验室助手，获取预约问卷、1V1 需求沟通和入群邀请</span>
+        </div>
+        <div class="coin-box">预约入口</div>
+      </section>
+
+      <section class="panel composer">
+        <textarea placeholder="发布动态"></textarea>
+        <div class="composer-actions">
+          <span>0/1000</span>
+          <div class="quick-actions">
+            <button class="small-btn" type="button">写文章</button>
+            <button class="small-btn" type="button">提问</button>
+            <button class="primary-btn" type="button" data-open-tab="booking">预约实验室</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel hot-news">
+        <h2 class="block-title">热门资讯</h2>
+        <a class="news-item" href="#">
+          <span class="news-label">置顶</span>
+          <span>共享实验室 1.0 预约机制说明：先用助手二维码 + 问卷星 + 人工审核跑通闭环</span>
+        </a>
+        <a class="news-item" href="#">
+          <span class="news-label">置顶</span>
+          <span>不确定测试设备或测试条件时，建议先提交问题，再由工程师判断是否预约</span>
+        </a>
+      </section>
+
+      <section class="panel tabs-panel">
+        <nav class="lab-tabs" aria-label="共享实验室分类">
+          <button class="tab-btn active" type="button" data-tab="all">全部</button>
+          <button class="tab-btn" type="button" data-tab="qa">问答</button>
+          <button class="tab-btn" type="button" data-tab="article">文章</button>
+          <button class="tab-btn" type="button" data-tab="activity">动态</button>
+          <button class="tab-btn" type="button" data-tab="booking">预约申请</button>
+        </nav>
+
+        <div class="tab-content active" id="tab-all">
+          <article class="post">
+            <a class="avatar" href="他人主页.html">彭</a>
+            <div>
+              <h3>共享实验室预约申请怎么走？</h3>
+              <p>现阶段采用“实验室助手二维码 + 问卷星预约 + 运营初筛 + 技术负责人审核”的轻量闭环，预约申请不等于预约成功。</p>
+              <div class="post-meta">
+                <span>12 分钟前</span>
+                <span>浏览 246</span>
+                <span>回复 18</span>
+                <span class="pill">试运行规则</span>
+              </div>
+            </div>
+            <span class="tag">预约申请</span>
+          </article>
+
+          <article class="post">
+            <a class="avatar" href="他人主页.html">刘</a>
+            <div>
+              <h3>锂电样品寄样测试，预约表里哪些信息必须填完整？</h3>
+              <p>至少需要样品名称、型号规格、数量、测试目的、测试条件、是否危险品、是否需要寄回。信息不完整时先进入“需补充”。</p>
+              <div class="post-meta">
+                <span>28 分钟前</span>
+                <span>收藏 32</span>
+                <span>评论 9</span>
+                <span class="pill">寄样测试</span>
+              </div>
+            </div>
+            <span class="tag">问答</span>
+          </article>
+
+          <article class="post">
+            <a class="avatar" href="他人主页.html">周</a>
+            <div>
+              <h3>共享实验室预约群试运行，优先承接锂电、储能、电源测试需求</h3>
+              <p>运营会根据行业方向和测试需求邀请进入预约群或对应行业交流群，审核进度通过助手私聊或群内同步。</p>
+              <div class="post-meta">
+                <span>今天 10:20</span>
+                <span>浏览 319</span>
+                <span>点赞 41</span>
+                <span class="pill">动态</span>
+              </div>
+            </div>
+            <span class="tag">动态</span>
+          </article>
+        </div>
+
+        <div class="tab-content" id="tab-qa">
+          <article class="post">
+            <a class="avatar" href="#">问</a>
+            <div>
+              <h3>Q：不确定该用哪台设备，可以直接预约吗？</h3>
+              <p>可以在目标设备处填写“需要推荐”，也可以先提交技术问题。运营和技术负责人会根据测试目的判断设备是否适配。</p>
+              <div class="post-meta"><span>测试方案咨询</span><span>设备选择</span><span>可转预约</span></div>
+            </div>
+            <span class="tag">问答</span>
+          </article>
+          <article class="post">
+            <a class="avatar" href="#">问</a>
+            <div>
+              <h3>Q：预约提交后多久能有结果？</h3>
+              <p>建议页面承诺为工作人员收到后尽快审核，具体以设备可用情况、测试条件和样品风险为准。复杂需求可能需要补充沟通。</p>
+              <div class="post-meta"><span>审核进度</span><span>人工处理</span></div>
+            </div>
+            <span class="tag">问答</span>
+          </article>
+        </div>
+
+        <div class="tab-content" id="tab-article">
+          <div class="grid-2">
+            <div class="card">
+              <strong>预约前准备清单</strong>
+              <p>准备测试目标、样品规格、测试条件、期望时间、保密要求、是否需要基础测试记录。</p>
+            </div>
+            <div class="card">
+              <strong>寄样测试说明</strong>
+              <p>寄样前确认样品风险、收寄信息、是否寄回和测试条件；信息不完整不安排测试。</p>
+            </div>
+            <div class="card">
+              <strong>问题池联动规则</strong>
+              <p>测试条件不清时先提问，工程师判断适合实验验证后，再引导进入预约申请。</p>
+            </div>
+            <div class="card">
+              <strong>测试案例沉淀规则</strong>
+              <p>仅在用户授权后，脱敏沉淀测试方案、设备问题、数据解读和后续验证建议。</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-activity">
+          <article class="post">
+            <a class="avatar" href="#">动</a>
+            <div>
+              <h3>实验室助手二维码入口上线</h3>
+              <p>用户点击预约实验室后，先添加实验室助手，再获取问卷星预约表、1V1 需求沟通和入群邀请。</p>
+              <div class="post-meta"><span>平台入口</span><span>问卷星预约</span><span>人工审核</span></div>
+            </div>
+            <span class="tag">动态</span>
+          </article>
+          <article class="post">
+            <a class="avatar" href="#">动</a>
+            <div>
+              <h3>共享实验室问题池同步建设</h3>
+              <p>测试方案咨询、设备使用问题、测试条件参数和预约流程问题，都可先进入问题池沉淀。</p>
+              <div class="post-meta"><span>问题池</span><span>内容沉淀</span></div>
+            </div>
+            <span class="tag">动态</span>
+          </article>
+        </div>
+
+        <div class="tab-content" id="tab-booking">
+          <div class="booking-subtabs" aria-label="预约申请二级栏目">
+            <button class="booking-subtab active" type="button" data-booking-tab="intro">共享实验室介绍</button>
+            <button class="booking-subtab" type="button" data-booking-tab="devices">设备清单</button>
+            <button class="booking-subtab" type="button" data-booking-tab="form">预约申请</button>
+          </div>
+
+          <section class="booking-section active" id="booking-intro">
+            <div class="section-title">
+              <h2>共享实验室介绍</h2>
+              <span class="pill">先审核，后预约</span>
+            </div>
+            <p class="hint">共享实验室面向企业研发人员、科研团队、硬科技创业项目和工程师个人，提供测试资源预约、测试方案咨询、寄样测试承接和测试问题沉淀。</p>
+            <div class="notice">提交预约申请不等于预约成功。设备、时间、测试条件、到场或寄样方式，以技术负责人最终确认为准。</div>
+            <div class="grid-2">
+              <div class="card">
+                <strong>适合人群</strong>
+                <p>企业研发、科研团队、创业项目、工程师个人；非技术泛咨询暂不优先承接。</p>
+              </div>
+              <div class="card">
+                <strong>服务场景</strong>
+                <p>产品测试、样品验证、设备使用、测试条件确认、测试过程问题咨询。</p>
+              </div>
+              <div class="card">
+                <strong>承接方式</strong>
+                <p>平台入口提交信息，运营初筛后由技术负责人审核，再通知预约结果。</p>
+              </div>
+              <div class="card">
+                <strong>内容沉淀</strong>
+                <p>经用户授权后，可将测试问题、设备经验和脱敏案例沉淀到不凡智库。</p>
+              </div>
+            </div>
+            <div class="process">
+              <div class="step"><div><strong>用户提交预约信息</strong><span>填写基础信息、测试申请、样品信息和寄样信息。</span></div></div>
+              <div class="step"><div><strong>运营初筛</strong><span>确认信息是否完整，必要时提醒用户补充。</span></div></div>
+              <div class="step"><div><strong>技术负责人审核</strong><span>判断设备适配、测试条件、样品风险和时间安排。</span></div></div>
+              <div class="step"><div><strong>通知结果并执行</strong><span>通过后确认设备、时间、对接人，进入现场或寄样测试。</span></div></div>
+            </div>
+          </section>
+
+          <section class="booking-section" id="booking-devices">
+            <div class="section-title">
+              <h2>设备清单</h2>
+              <span class="pill">可预约咨询</span>
+            </div>
+            <p class="hint">以下为页面展示用设备清单，实际开放范围、测试参数和排期需由技术负责人确认。</p>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>设备/测试项目</th>
+                    <th>适用方向</th>
+                    <th>可支持内容</th>
+                    <th>预约状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>电池测试系统</td>
+                    <td>锂电池 / 储能</td>
+                    <td>容量、倍率、循环、内阻、充放电等测试。</td>
+                    <td>可预约咨询</td>
+                  </tr>
+                  <tr>
+                    <td>高低温 / 环境试验箱</td>
+                    <td>可靠性测试</td>
+                    <td>温度循环、高低温、湿热、环境适应性验证。</td>
+                    <td>需确认排期</td>
+                  </tr>
+                  <tr>
+                    <td>示波器 / 功率分析仪</td>
+                    <td>电源、电力电子</td>
+                    <td>纹波、效率、功率、瞬态波形、通道数据分析。</td>
+                    <td>可预约咨询</td>
+                  </tr>
+                  <tr>
+                    <td>结构与材料基础检测</td>
+                    <td>硬件样品验证</td>
+                    <td>尺寸、外观、基础性能、工艺问题辅助判断。</td>
+                    <td>需人工确认</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="booking-section" id="booking-form">
+            <div class="booking-grid">
+              <form id="labBookingForm">
+                <div class="section-title">
+                  <h2>预约申请表</h2>
+                  <span class="pill">字段原型</span>
+                </div>
+                <p class="hint">请按实际测试需求填写。带 <span class="required">*</span> 的字段为必填项。</p>
+
+                <div class="form-section">
+                  <h3>基础信息</h3>
+                  <div class="form-grid">
+                    <label class="form-field">姓名 <span class="required">*</span><input name="name" required placeholder="请输入申请人姓名" /></label>
+                    <label class="form-field">手机号 <span class="required">*</span><input name="phone" required placeholder="用于审核和通知" /></label>
+                    <label class="form-field full">公司/机构/团队名称 <span class="required">*</span><input name="organization" required placeholder="请输入公司、机构或团队名称" /></label>
+                    <label class="form-field">申请人类型 <span class="required">*</span>
+                      <select name="applicantType" required>
+                        <option value="">请选择</option>
+                        <option>个人</option>
+                        <option>企业</option>
+                        <option>科研团队</option>
+                        <option>创业项目</option>
+                        <option>其他</option>
+                      </select>
+                    </label>
+                    <label class="form-field">职位/角色 <small>选填</small><input name="role" placeholder="研发、工程师、创始人、学生等" /></label>
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <h3>测试申请信息</h3>
+                  <div class="form-grid">
+                    <label class="form-field">测试方式 <span class="required">*</span>
+                      <select name="testMode" id="testMode" required>
+                        <option value="">请选择</option>
+                        <option value="现场测试">现场测试</option>
+                        <option value="寄样测试">寄样测试</option>
+                      </select>
+                    </label>
+                    <label class="form-field">预计测试时长 <span class="required">*</span>
+                      <select name="duration" required>
+                        <option value="">请选择</option>
+                        <option>半天</option>
+                        <option>1天</option>
+                        <option>24小时</option>
+                        <option>48小时</option>
+                        <option>96小时</option>
+                        <option>其他</option>
+                      </select>
+                    </label>
+                    <label class="form-field full">测试目的 <span class="required">*</span><textarea name="testPurpose" required placeholder="请说明希望验证什么问题"></textarea></label>
+                    <label class="form-field full">目标设备/测试项目 <span class="required">*</span><input name="targetDevice" required placeholder="可填写具体设备、测试项目，或填写“需要推荐”" /></label>
+                    <label class="form-field full">已有测试方案或预期参数 <span class="required">*</span><textarea name="testPlan" required placeholder="请填写已有方案、参数、判断标准"></textarea></label>
+                    <label class="form-field">期望测试日期 <span class="required">*</span><input name="expectedDate" type="date" required /></label>
+                    <label class="form-field">期望时间段 <span class="required">*</span>
+                      <select name="timeSlot" required>
+                        <option value="">请选择</option>
+                        <option>上午</option>
+                        <option>下午</option>
+                        <option>全天</option>
+                        <option>具体时间</option>
+                      </select>
+                    </label>
+                    <label class="form-field">是否接受时间调剂 <span class="required">*</span>
+                      <select name="flexibleTime" required>
+                        <option value="">请选择</option>
+                        <option>接受</option>
+                        <option>不接受</option>
+                        <option>需提前沟通</option>
+                      </select>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-section">
+                  <h3>被测产品/样品信息</h3>
+                  <div class="form-grid">
+                    <label class="form-field">产品/样品名称 <span class="required">*</span><input name="sampleName" required placeholder="请输入被测对象" /></label>
+                    <label class="form-field">型号/规格 <span class="required">*</span><input name="sampleModel" required placeholder="便于判断设备适配" /></label>
+                    <label class="form-field">样品数量 <span class="required">*</span><input name="sampleCount" required placeholder="便于收样和测试安排" /></label>
+                    <label class="form-field full">样品注意事项 <small>选填</small><textarea name="sampleNotes" placeholder="存储、运输、操作、风险说明"></textarea></label>
+                  </div>
+                </div>
+
+                <div class="form-section" id="shippingFields" hidden>
+                  <h3>寄样测试补充字段</h3>
+                  <p class="hint">仅当用户选择“寄样测试”时填写。</p>
+                  <div class="form-grid">
+                    <label class="form-field">是否已寄出 <span class="required">*</span>
+                      <select name="shipped">
+                        <option value="">请选择</option>
+                        <option>是</option>
+                        <option>否</option>
+                      </select>
+                    </label>
+                    <label class="form-field">快递公司 <small>已寄出时填写</small><input name="expressCompany" placeholder="如顺丰、京东、德邦等" /></label>
+                    <label class="form-field">快递单号 <small>已寄出时填写</small><input name="trackingNo" placeholder="请输入快递单号" /></label>
+                    <label class="form-field">寄件人姓名 <small>已寄出时填写</small><input name="senderName" placeholder="请输入寄件人姓名" /></label>
+                    <label class="form-field">寄件人电话 <small>已寄出时填写</small><input name="senderPhone" placeholder="请输入寄件人电话" /></label>
+                    <label class="form-field">是否需要寄回 <span class="required">*</span>
+                      <select name="returnNeeded">
+                        <option value="">请选择</option>
+                        <option>是</option>
+                        <option>否</option>
+                      </select>
+                    </label>
+                    <label class="form-field full">回寄地址 <small>需要寄回时填写</small><textarea name="returnAddress" placeholder="请输入回寄地址"></textarea></label>
+                  </div>
+                </div>
+
+                <div class="submit-row">
+                  <div class="form-status" id="bookingStatus">预约申请已提交，工作人员将根据设备、时间和测试条件进行审核。</div>
+                  <button class="primary-btn" type="submit">提交预约申请</button>
+                </div>
+
+                <div class="qr-card" style="position: static; margin-top: 14px;">
+                  <div class="qr">实验室助手<br>二维码示意</div>
+                  <strong>扫码添加实验室助手</strong>
+                  <p class="hint">添加小助手快速获得信息哦。</p>
+                </div>
+              </form>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <aside class="right-rail">
+      <section class="panel rail-card mall-card">
+        <h2 class="rail-title"><span class="mall-logo">不凡商城</span><a href="#">立即体验 &gt;</a></h2>
+        <p class="hint">研发、生产、实验室工具和测试仪器采购入口</p>
+        <div class="mall-images">
+          <div class="mall-img"></div>
+          <div class="mall-img"></div>
+        </div>
+      </section>
+
+      <section class="panel rail-card">
+        <h2 class="rail-title">社区数据</h2>
+        <div class="stats-grid">
+          <div class="data-box">今日帖子<strong>10</strong></div>
+          <div class="data-box">今日互动<strong>50</strong></div>
+          <div class="data-box">在线人数<strong>527</strong></div>
+          <div class="data-box">帖子总数<strong>2654</strong></div>
+          <div class="data-box">用户总量<strong>10601</strong></div>
+          <div class="data-box">打赏累计<strong>11096</strong></div>
+        </div>
+      </section>
+
+      <section class="panel rail-card">
+        <h2 class="rail-title">本周热门话题</h2>
+        <div class="topic-tags">
+          <span>锂电</span><span>储能</span><span>电源</span><span>工艺</span>
+          <span>高低温测试</span><span>芯片</span><span>AI</span><span>具身智能机器人</span>
+          <span>实验室预约</span><span>测试方案</span><span>样品风险</span>
+        </div>
+      </section>
+
+      <section class="panel rail-card">
+        <h2 class="rail-title">共享专区 <a href="#">更多 &gt;</a></h2>
+        <ul class="list">
+          <li>关于共享实验室，测试工位预约、样品测试和结果沟通应如何衔接？</li>
+          <li>锂电池样品寄样测试前，需要准备哪些信息？</li>
+          <li>高低温测试、充放电测试、功率测试如何选择设备？</li>
+          <li>实验数据能否脱敏沉淀为公开案例？</li>
+        </ul>
+      </section>
+
+      <section class="panel rail-card">
+        <h2 class="rail-title">打赏记录</h2>
+        <p class="hint">暂无最新打赏记录</p>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const tabPanels = document.querySelectorAll(".tab-content");
+    const openTabButtons = document.querySelectorAll("[data-open-tab]");
+    const bookingSubtabs = document.querySelectorAll(".booking-subtab");
+    const bookingSections = document.querySelectorAll(".booking-section");
+    const testMode = document.getElementById("testMode");
+    const shippingFields = document.getElementById("shippingFields");
+    const bookingForm = document.getElementById("labBookingForm");
+    const bookingStatus = document.getElementById("bookingStatus");
+
+    function switchTab(tab) {
+      tabButtons.forEach((button) => button.classList.toggle("active", button.dataset.tab === tab));
+      tabPanels.forEach((panel) => panel.classList.toggle("active", panel.id === `tab-${tab}`));
+      document.querySelector(".tabs-panel").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function switchBookingSection(section) {
+      bookingSubtabs.forEach((button) => button.classList.toggle("active", button.dataset.bookingTab === section));
+      bookingSections.forEach((panel) => panel.classList.toggle("active", panel.id === `booking-${section}`));
+    }
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => switchTab(button.dataset.tab));
+    });
+
+    openTabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        switchTab(button.dataset.openTab);
+        switchBookingSection("form");
+      });
+    });
+
+    bookingSubtabs.forEach((button) => {
+      button.addEventListener("click", () => switchBookingSection(button.dataset.bookingTab));
+    });
+
+    if (testMode && shippingFields) {
+      testMode.addEventListener("change", () => {
+        shippingFields.hidden = testMode.value !== "寄样测试";
+      });
+    }
+
+    if (bookingForm && bookingStatus) {
+      bookingForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        bookingStatus.classList.add("show");
+        bookingStatus.scrollIntoView({ behavior: "smooth", block: "center" });
+      });
+    }
+  </script>
+</body>
+</html>

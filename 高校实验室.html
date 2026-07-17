@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>高校实验室 - 不凡智库社区</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --panel: #ffffff;
+      --line: #e6e8ee;
+      --text: #20242a;
+      --muted: #6f7784;
+      --red: #df1d2d;
+      --red-soft: #fff1f3;
+      --blue: #246bfe;
+      --max: 1120px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      height: 64px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .topbar-inner {
+      width: min(var(--max), calc(100vw - 40px));
+      height: 64px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      color: var(--red);
+      font-size: 20px;
+      font-weight: 900;
+    }
+    .back {
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 6px;
+      background: var(--red);
+      color: #fff;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .layout {
+      width: min(var(--max), calc(100vw - 40px));
+      margin: 18px auto 48px;
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 14px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(23, 31, 42, .06);
+    }
+    .side {
+      padding: 12px;
+      position: sticky;
+      top: 82px;
+      align-self: start;
+    }
+    .side-title {
+      height: 34px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      color: var(--muted);
+      font-weight: 700;
+      border-top: 1px solid var(--line);
+      margin-top: 8px;
+    }
+    .side-title:first-child {
+      border-top: 0;
+      margin-top: 0;
+    }
+    .side a {
+      min-height: 36px;
+      border-radius: 6px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      color: #3e4652;
+    }
+    .side a.active,
+    .side a:hover {
+      background: var(--red-soft);
+      color: var(--red);
+      font-weight: 700;
+    }
+
+    .main {
+      display: grid;
+      gap: 14px;
+    }
+    .hero {
+      padding: 22px 24px;
+      background: linear-gradient(90deg, #9f1020, #df1d2d);
+      color: #fff;
+    }
+    .hero h1 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      letter-spacing: 0;
+    }
+    .hero p {
+      margin: 0;
+      color: rgba(255, 255, 255, .86);
+    }
+
+    .tabs {
+      padding: 20px 24px 0;
+    }
+    .tab-list {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 34px;
+      border-bottom: 1px solid var(--line);
+    }
+    .tab-btn {
+      appearance: none;
+      border: 0;
+      background: transparent;
+      padding: 0 0 14px;
+      color: #111827;
+      font: inherit;
+      font-size: 22px;
+      line-height: 1.2;
+      cursor: pointer;
+      position: relative;
+    }
+    .tab-btn::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 3px;
+      background: transparent;
+      border-radius: 999px;
+    }
+    .tab-btn.active {
+      color: #111;
+      font-weight: 800;
+    }
+    .tab-btn.active::after {
+      background: var(--red);
+    }
+
+    .tab-content {
+      padding: 24px;
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .section-title h2 {
+      margin: 0;
+      font-size: 20px;
+    }
+    .tag {
+      color: var(--blue);
+      background: #eef4ff;
+      border: 1px solid #d8e5ff;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .intro-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .intro-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fafbfc;
+      padding: 14px;
+    }
+    .intro-card strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+    .intro-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+    .plain-list {
+      margin: 14px 0 0;
+      padding-left: 18px;
+      color: #343b46;
+    }
+    .plain-list li + li {
+      margin-top: 8px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+    }
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+    tr:last-child td { border-bottom: 0; }
+    th {
+      background: #fafbfc;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .booking {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 170px;
+      gap: 20px;
+      align-items: center;
+    }
+    .notice {
+      padding: 12px;
+      border: 1px solid #ffd7dc;
+      border-radius: 8px;
+      background: var(--red-soft);
+      color: #8a1520;
+      margin-top: 14px;
+    }
+    .qr {
+      width: 160px;
+      height: 160px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, #111 10px, transparent 10px) 0 0 / 20px 20px,
+        linear-gradient(#111 10px, transparent 10px) 0 0 / 20px 20px,
+        #fff;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      color: #111;
+      font-weight: 900;
+      box-shadow: inset 0 0 0 18px #fff;
+    }
+
+    @media (max-width: 820px) {
+      .topbar-inner,
+      .layout {
+        width: calc(100vw - 24px);
+      }
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .side {
+        position: static;
+      }
+      .tab-list {
+        gap: 18px;
+        justify-content: flex-start;
+        overflow-x: auto;
+      }
+      .tab-btn {
+        font-size: 18px;
+        white-space: nowrap;
+      }
+      .intro-grid,
+      .booking {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="不凡智库工程师社区首页原型.html">不凡智库社区</a>
+      <a class="back" href="不凡智库工程师社区首页原型.html">返回首页</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="panel side">
+      <div class="side-title">共享实验室</div>
+      <a href="#">不凡总部实验室</a>
+      <a class="active" href="高校实验室.html">高校实验室</a>
+      <a href="#">爱心企业实验室</a>
+
+      <div class="side-title">本页内容</div>
+      <a href="#" class="js-tab-link active" data-tab="intro">实验室介绍</a>
+      <a href="#" class="js-tab-link" data-tab="devices">设备清单</a>
+      <a href="#" class="js-tab-link" data-tab="booking">申请预约</a>
+    </aside>
+
+    <main class="main">
+      <section class="panel hero">
+        <h1>高校实验室</h1>
+        <p>面向工程师、硬科技创业团队和企业技术人员，展示可合作的高校实验室资源，并通过人工对接完成预约。</p>
+      </section>
+
+      <section class="panel">
+        <div class="tabs">
+          <div class="tab-list" aria-label="高校实验室内容切换">
+            <button class="tab-btn active" type="button" data-tab="intro">实验室介绍</button>
+            <button class="tab-btn" type="button" data-tab="devices">设备清单</button>
+            <button class="tab-btn" type="button" data-tab="booking">申请预约</button>
+          </div>
+        </div>
+
+        <div class="tab-content active" id="tab-intro">
+          <div class="section-title">
+            <h2>实验室介绍</h2>
+            <span class="tag">高校资源对接</span>
+          </div>
+          <p>高校实验室频道用于展示不凡智库可协助对接的高校实验资源。用户可先了解实验室方向、适用场景和预约规则，再根据具体测试需求提交预约。</p>
+          <div class="intro-grid">
+            <div class="intro-card">
+              <strong>适用场景</strong>
+              <p>样品测试、设备验证、实验方案咨询、技术交流、产学研合作。</p>
+            </div>
+            <div class="intro-card">
+              <strong>服务方式</strong>
+              <p>用户提交需求后，由运营初筛，再对接高校实验室或相关负责人。</p>
+            </div>
+            <div class="intro-card">
+              <strong>预约说明</strong>
+              <p>页面先做信息展示，具体排期、费用、可测试范围以人工确认为准。</p>
+            </div>
+          </div>
+          <ul class="plain-list">
+            <li>建议用户提前准备测试目的、样品情况、期望时间和是否需要保密。</li>
+            <li>前期可由运营人工承接，后续再沉淀为标准预约表单。</li>
+          </ul>
+        </div>
+
+        <div class="tab-content" id="tab-devices">
+          <div class="section-title">
+            <h2>设备清单</h2>
+            <span class="tag">可预约咨询</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>设备名称</th>
+                  <th>适用方向</th>
+                  <th>可支持内容</th>
+                  <th>预约状态</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>电池测试系统</td>
+                  <td>锂电池 / 储能</td>
+                  <td>容量、倍率、循环、内阻等相关测试。</td>
+                  <td>可预约咨询</td>
+                </tr>
+                <tr>
+                  <td>环境试验箱</td>
+                  <td>可靠性测试</td>
+                  <td>高低温、湿热、环境适应性验证。</td>
+                  <td>需确认排期</td>
+                </tr>
+                <tr>
+                  <td>示波器 / 功率分析仪</td>
+                  <td>电源、电力电子</td>
+                  <td>纹波、效率、功率、瞬态波形分析。</td>
+                  <td>可预约咨询</td>
+                </tr>
+                <tr>
+                  <td>机器人运动控制实验平台</td>
+                  <td>具身智能机器人</td>
+                  <td>控制算法验证、传感器调试、运动测试。</td>
+                  <td>需人工确认</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="tab-content" id="tab-booking">
+          <div class="section-title">
+            <h2>申请预约</h2>
+            <span class="tag">扫码添加</span>
+          </div>
+          <div class="booking">
+            <div>
+              <p>请扫码添加不凡智库工作人员，发送“高校实验室预约 + 测试方向 + 需求简述”。运营会先确认需求，再协助对接实验室资源。</p>
+              <div class="notice">
+                建议用户补充：单位 / 团队、测试对象、测试目的、期望时间、是否需要保密、是否已有测试标准。
+              </div>
+            </div>
+            <div class="qr">预约二维码<br>示意</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const sideLinks = document.querySelectorAll(".js-tab-link");
+    const contents = document.querySelectorAll(".tab-content");
+
+    function switchTab(tab) {
+      tabButtons.forEach((button) => button.classList.toggle("active", button.dataset.tab === tab));
+      sideLinks.forEach((link) => link.classList.toggle("active", link.dataset.tab === tab));
+      contents.forEach((content) => content.classList.toggle("active", content.id === `tab-${tab}`));
+    }
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => switchTab(button.dataset.tab));
+    });
+
+    sideLinks.forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        switchTab(link.dataset.tab);
+      });
+    });
+  </script>
+</body>
+</html>

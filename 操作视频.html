@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>操作视频 - 共享资料区</title>
+  <style>
+    :root{--bg:#f3f4f6;--panel:#fff;--line:#e3e7ee;--text:#222833;--muted:#6d7582;--red:#df1d2d;--blue:#1677ff;--soft:#f8fafc;--max:1180px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:14px;line-height:1.55}a{text-decoration:none;color:inherit}button{font:inherit;cursor:pointer}.topbar{height:58px;background:#fff;border-bottom:1px solid var(--line)}.topbar-inner{width:min(var(--max),calc(100vw - 40px));height:58px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.brand{color:var(--red);font-size:19px;font-weight:900}.btn{height:32px;border:1px solid var(--line);border-radius:4px;background:#fff;padding:0 12px;display:inline-flex;align-items:center;font-weight:700}.btn.primary{background:var(--red);border-color:var(--red);color:#fff}.wrap{width:min(var(--max),calc(100vw - 40px));margin:16px auto 48px}.filter,.upload-panel{background:#fff;border:1px solid var(--line);border-radius:4px;padding:18px 20px;margin-bottom:18px}.filter h2,.upload-panel h2{margin:0 0 14px;color:#8a8f99;font-size:18px;font-weight:500}.filter-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px 28px;color:#4d5662}.filter label{display:flex;gap:6px;align-items:center}.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px;font-weight:800}.field input,.field textarea,.field select{border:1px solid #d9dfe8;border-radius:4px;padding:8px 10px}.field textarea{min-height:84px;resize:vertical}.field.full{grid-column:1 / -1}.upload-note{color:var(--muted);margin-top:10px}.head{display:flex;justify-content:space-between;align-items:center;margin:0 0 14px}.head h1{margin:0;font-size:22px}.video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px 38px}.card{background:#fff;border-radius:4px;overflow:hidden;position:relative;border:1px solid #edf0f5}.cover{height:178px;background:#0b7cff;display:grid;place-items:center;color:#fff;text-align:center;padding:16px;position:relative}.cover.alt1{background:linear-gradient(135deg,rgba(0,0,0,.25),rgba(0,0,0,.5)),url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80") center/cover}.cover.alt2{background:linear-gradient(135deg,rgba(0,0,0,.15),rgba(0,0,0,.38)),url("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80") center/cover}.cover.alt3{background:linear-gradient(135deg,#0146a0,#0c8cff)}.cover.alt4{background:linear-gradient(135deg,#0b2162,#1da1ff)}.cover.alt5{background:linear-gradient(135deg,#261d44,#ff6b35)}.cover.alt6{background:linear-gradient(135deg,#eef2ff,#dbeafe);color:#334155}.recommend{position:absolute;left:0;top:26px;background:#ff604f;color:#fff;padding:7px 16px;font-weight:800}.cover strong{font-size:22px}.body{padding:14px 18px}.author{display:flex;align-items:center;gap:8px;color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:12px}.avatar{width:26px;height:26px;border-radius:50%;background:#eaf1ff;color:var(--blue);display:grid;place-items:center;font-weight:900}.body h3{margin:0 0 12px;font-size:17px;line-height:1.35}.stats{display:flex;gap:8px;align-items:center;flex-wrap:wrap;color:var(--muted)}.price{background:#f4f6f8;padding:6px 9px;color:#222;font-weight:800}.plus{position:absolute;right:-8px;bottom:-8px;width:24px;height:24px;border-radius:50%;background:#cfd4dc;color:#fff;display:grid;place-items:center;font-size:20px;font-weight:900}@media(max-width:900px){.video-grid{grid-template-columns:1fr}.filter-grid,.upload-grid{grid-template-columns:1fr}.topbar-inner,.wrap{width:calc(100vw - 24px)}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="共享资料区.html">共享资料区 / 操作视频</a><div><a class="btn" href="共享资料区.html">资料首页</a> <a class="btn primary" href="#uploadVideo">上传视频</a></div></div></header>
+  <main class="wrap">
+    <section class="filter">
+      <h2>分类筛选：</h2>
+      <div class="filter-grid">
+        <label><input type="radio" name="dept" checked /> 全部分类 (24)</label><label><input type="radio" name="dept" /> 研发 (8)</label><label><input type="radio" name="dept" /> 品质 (6)</label><label><input type="radio" name="dept" /> 产线 (5)</label><label><input type="radio" name="dept" /> 实验室 (5)</label><label><input type="checkbox" checked /> 推荐 (12)</label>
+        <label><input type="checkbox" /> 电池测试 (7)</label><label><input type="checkbox" /> 示波器 (5)</label><label><input type="checkbox" /> 高低温箱 (5)</label><label><input type="checkbox" /> 功率分析仪 (3)</label><label><input type="checkbox" /> 充电桩 (2)</label><label><input type="checkbox" /> 电源调试 (2)</label>
+      </div>
+    </section>
+    <section class="upload-panel" id="uploadVideo">
+      <h2>上传操作视频</h2>
+      <div class="upload-grid">
+        <label class="field">视频标题<input placeholder="例如：电池测试柜通道校准完整流程" /></label>
+        <label class="field">所属分类<select><option>研发</option><option>品质</option><option>产线</option><option>实验室</option></select></label>
+        <label class="field">设备品牌型号<input placeholder="例如：某品牌示波器 / 电池测试柜型号" /></label>
+        <label class="field">操作场景<input placeholder="例如：校准、数据导出、曲线设置、报警处理" /></label>
+        <label class="field full">操作步骤说明<textarea placeholder="按步骤说明这个视频解决什么问题，方便后续搜索"></textarea></label>
+        <label class="field full">视频上传<input type="file" accept="video/*" /></label>
+      </div>
+      <div class="upload-note">上传视频需审核，审核通过后可按质量发放 20-50 积分奖励。</div>
+    </section>
+    <div class="head"><h1>操作视频</h1><a class="btn primary" href="#uploadVideo">上传视频</a></div>
+    <section class="video-grid">
+      <a class="card" href="操作视频详情.html"><div class="cover alt3"><span class="recommend">研发</span><strong>电池测试柜通道校准</strong><span>研发调试与参数确认</span></div><div class="body"><div class="author"><span class="avatar">枫</span>by 枫叶</div><h3>电池测试柜通道校准完整流程</h3><div class="stats"><span class="price">售价：￥0.00</span><span>播放：13732</span></div></div><span class="plus">+</span></a>
+      <a class="card" href="操作视频详情.html"><div class="cover alt1"><span class="recommend">品质</span><strong>功率分析仪数据导出</strong><span>品质复测与报表留档</span></div><div class="body"><div class="author"><span class="avatar">王</span>by 王者</div><h3>功率分析仪数据导出与报表生成</h3><div class="stats"><span class="price">售价：￥25.00</span><span>播放：7486</span></div></div><span class="plus">+</span></a>
+      <a class="card" href="操作视频详情.html"><div class="cover alt2"><span class="recommend">产线</span><strong>示波器截图与存储</strong><span>产线记录与问题留痕</span></div><div class="body"><div class="author"><span class="avatar">J</span>by Jorkin</div><h3>示波器截图、波形保存和导出设置</h3><div class="stats"><span class="price">售价：￥39.90</span><span>播放：3015</span></div></div><span class="plus">+</span></a>
+      <a class="card" href="操作视频详情.html"><div class="cover alt4"><span class="recommend">实验室</span><strong>高低温箱程序设置</strong></div><div class="body"><div class="author"><span class="avatar">周</span>by 周工</div><h3>高低温箱温度曲线和报警处理</h3><div class="stats"><span class="price">免费</span><span>播放：2240</span></div></div><span class="plus">+</span></a>
+      <a class="card" href="操作视频详情.html"><div class="cover alt5"><span class="recommend">研发</span><strong>充电桩测试接线</strong></div><div class="body"><div class="author"><span class="avatar">苏</span>by 苏工</div><h3>充电桩测试前接线检查与安全确认</h3><div class="stats"><span class="price">售价：￥10.00</span><span>播放：1890</span></div></div><span class="plus">+</span></a>
+      <a class="card" href="操作视频详情.html"><div class="cover alt6"><span class="recommend">品质</span><strong>说明书查找示例</strong></div><div class="body"><div class="author"><span class="avatar">刘</span>by 刘工</div><h3>如何按研发、品质、产线、实验室查找操作视频</h3><div class="stats"><span class="price">免费</span><span>播放：1651</span></div></div><span class="plus">+</span></a>
+    </section>
+  </main>
+</body>
+</html>

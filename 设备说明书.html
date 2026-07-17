@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>设备说明书 - 共享资料区</title>
+  <style>
+    :root{--bg:#f3f4f6;--panel:#fff;--line:#e3e7ee;--text:#222833;--muted:#6d7582;--red:#df1d2d;--blue:#1677ff;--soft:#f8fafc;--max:1180px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:14px;line-height:1.55}a{text-decoration:none;color:inherit}button{font:inherit;cursor:pointer}.topbar{height:58px;background:#fff;border-bottom:1px solid var(--line)}.topbar-inner{width:min(var(--max),calc(100vw - 40px));height:58px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.brand{color:var(--red);font-size:19px;font-weight:900}.btn{height:32px;border:1px solid var(--line);border-radius:4px;background:#fff;padding:0 12px;display:inline-flex;align-items:center;font-weight:700}.btn.primary{background:var(--red);border-color:var(--red);color:#fff}.wrap{width:min(var(--max),calc(100vw - 40px));margin:16px auto 48px}.hero,.upload-panel{background:#fff;border:1px solid var(--line);border-radius:4px;padding:18px;margin-bottom:14px}.hero h1,.upload-panel h2{margin:0 0 6px}.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.field{display:grid;gap:6px;font-weight:800}.field input,.field textarea,.field select{border:1px solid #d9dfe8;border-radius:4px;padding:8px 10px}.field textarea{min-height:80px;resize:vertical}.field.full{grid-column:1 / -1}.upload-note{margin-top:10px;color:var(--muted)}.layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:14px}.cats{background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden}.cat{height:48px;padding:0 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between}.cat.active,.cat:hover{background:#fff1f3;color:var(--red);font-weight:900}.cat:last-child{border-bottom:0}.content{background:#fff;border:1px solid var(--line);border-radius:4px;padding:16px}.content h2{margin:0 0 12px}.manual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.manual{border:1px solid var(--line);border-radius:4px;padding:12px;background:#fff}.manual-icon{height:82px;border-radius:4px;background:linear-gradient(135deg,#eef5ff,#f8fafc);display:grid;place-items:center;color:var(--blue);font-size:28px;font-weight:900;margin-bottom:10px}.manual h3{margin:0 0 8px;font-size:15px}.manual p{margin:0 0 10px;color:var(--muted)}.meta{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.search{display:grid;grid-template-columns:minmax(0,1fr) 80px;gap:8px;margin-bottom:14px}.search input{height:34px;border:1px solid #d9dfe8;border-radius:4px;padding:0 10px}@media(max-width:900px){.layout,.upload-grid{grid-template-columns:1fr}.manual-grid{grid-template-columns:1fr}.topbar-inner,.wrap{width:calc(100vw - 24px)}.topbar{height:auto}.topbar-inner{height:auto;padding:10px 0;align-items:flex-start;flex-direction:column}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="共享资料区.html">共享资料区 / 设备说明书</a><div><a class="btn" href="共享资料区.html">资料首页</a> <a class="btn primary" href="#uploadManual">上传资料</a></div></div></header>
+  <main class="wrap">
+    <section class="hero"><h1>设备说明书</h1><p>按研发、品质、产线、实验室四个板块组织说明书。选择左侧分类，查看对应设备说明书、报警码、校准步骤和维护资料。</p></section>
+    <section class="upload-panel" id="uploadManual">
+      <h2>上传设备说明书</h2>
+      <div class="upload-grid">
+        <label class="field">资料名称<input placeholder="例如：功率分析仪 PA-3000 使用说明书" /></label>
+        <label class="field">所属分类<select><option>研发</option><option>品质</option><option>产线</option><option>实验室</option></select></label>
+        <label class="field">适用设备 / 型号<input placeholder="例如：示波器、电池测试柜、电源设备" /></label>
+        <label class="field">来源说明<input placeholder="说明公开来源或授权情况" /></label>
+        <label class="field full">资料说明<textarea placeholder="说明资料包含的内容，如报警码、校准步骤、维护方法等"></textarea></label>
+        <label class="field full">文件上传<input type="file" /></label>
+      </div>
+      <div class="upload-note">上传资料需审核，重复、侵权、非公开资料不发放奖励。</div>
+    </section>
+    <div class="layout">
+      <aside class="cats">
+        <a class="cat active" href="#">研发 <span>›</span></a>
+        <a class="cat" href="#">品质 <span>›</span></a>
+        <a class="cat" href="#">产线 <span>›</span></a>
+        <a class="cat" href="#">实验室 <span>›</span></a>
+      </aside>
+      <section class="content">
+        <div class="search"><input placeholder="输入品牌、型号、报警码或设备名称" /><button class="btn primary" type="button">搜索</button></div>
+        <h2>研发分类说明书</h2>
+        <div class="manual-grid">
+          <a class="manual" href="#"><div class="manual-icon">PDF</div><h3>研发板块 - 功率分析仪 PA-3000 使用说明书</h3><p>研发调试、数据导出、通道设置、报表生成。</p><div class="meta"><span>下载 328</span><span>免费</span></div></a>
+          <a class="manual" href="#"><div class="manual-icon">PDF</div><h3>品质板块 - 示波器 DSO 系列快速操作指南</h3><p>品质复测、触发设置、波形保存、截图导出。</p><div class="meta"><span>下载 512</span><span>免费</span></div></a>
+          <a class="manual" href="#"><div class="manual-icon">PDF</div><h3>产线板块 - 电子负载操作手册</h3><p>产线测试、CC/CV/CP 模式设置和保护参数说明。</p><div class="meta"><span>下载 221</span><span>免费</span></div></a>
+          <a class="manual" href="#"><div class="manual-icon">PDF</div><h3>实验室板块 - 多通道温度记录仪说明书</h3><p>实验室记录、探头接入、采样间隔、数据导出和报警配置。</p><div class="meta"><span>下载 98</span><span>免费</span></div></a>
+          <a class="manual" href="#"><div class="manual-icon">PDF</div><h3>研发板块 - 频谱分析仪常用菜单索引</h3><p>频段设置、峰值搜索、数据保存、校准提醒。</p><div class="meta"><span>下载 136</span><span>登录查看</span></div></a>
+          <a class="manual" href="#"><div class="manual-icon">PDF</div><h3>实验室板块 - 绝缘耐压测试仪安全操作说明</h3><p>接线方式、测试步骤、风险提示、故障处理。</p><div class="meta"><span>下载 72</span><span>需审核</span></div></a>
+        </div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

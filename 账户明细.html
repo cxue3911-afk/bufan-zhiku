@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>账户明细 - 不凡智库社区</title>
+  <style>
+    :root{--bg:#f4f6f8;--panel:#fff;--line:#e5e9ef;--text:#20242a;--muted:#6d7480;--red:#df1d2d;--blue:#246bfe;--green:#0f9f6e;--soft:#fff2f3;--max:980px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:14px;line-height:1.55}a{text-decoration:none;color:inherit}.topbar{height:64px;background:#fff;border-bottom:1px solid var(--line)}.topbar-inner{width:min(var(--max),calc(100vw - 40px));height:64px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:900;color:var(--red);font-size:20px}.btn{height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;padding:0 12px;display:inline-flex;align-items:center;justify-content:center}.btn.primary{background:var(--red);color:#fff;border-color:var(--red);font-weight:800}.wrap{width:min(var(--max),calc(100vw - 40px));margin:18px auto 48px;display:grid;gap:14px}.panel{background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(23,31,42,.06)}.wallet{padding:22px;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:18px;align-items:center}.eyebrow{color:var(--muted);font-weight:700}.amount{color:var(--red);font-size:34px;font-weight:900}.wallet p{margin:4px 0 0;color:var(--muted)}.stat-row{display:flex;gap:24px;margin-top:14px;flex-wrap:wrap}.stat-row strong{display:block;color:var(--text);font-size:18px}.stat-row span{color:var(--muted);font-size:12px}.pay-box{display:grid;gap:10px}.pay-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.pay{height:38px;border-radius:6px;border:1px solid #ffd7dc;background:var(--soft);color:var(--red);display:flex;align-items:center;justify-content:center;font-weight:800}.pay.main{background:var(--red);color:#fff}.section{padding:18px}.section h2{margin:0 0 12px;font-size:18px}.exchange{display:grid;grid-template-columns:minmax(0,1fr) 110px;gap:10px}.exchange input{height:38px;border:1px solid #d9dfe8;border-radius:6px;padding:0 12px}.note{margin-top:8px;color:var(--muted);font-size:13px}.table{width:100%;border-collapse:collapse}.table th,.table td{border-bottom:1px solid var(--line);padding:12px 8px;text-align:left}.table th{color:var(--muted);font-weight:700;background:#fafbfc}.income{color:var(--green);font-weight:800}.out{color:var(--red);font-weight:800}@media(max-width:760px){.wallet{grid-template-columns:1fr}.pay-row,.exchange{grid-template-columns:1fr}.topbar-inner{width:calc(100vw - 24px)}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="不凡智库工程师社区首页原型.html">不凡智库社区</a>
+      <div><a class="btn" href="我的主页.html">返回我的主页</a> <a class="btn primary" href="不凡智库工程师社区首页原型.html">返回首页</a></div>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="panel wallet">
+      <div>
+        <div class="eyebrow">账户积分</div>
+        <div class="amount">260 积分</div>
+        <p>1 积分 = 1 元。积分可用于悬赏、打赏、资料解锁和充值消费；经验值仅用于等级成长。</p>
+        <div class="stat-row">
+          <div><strong>260</strong><span>可用积分</span></div>
+          <div><strong>50</strong><span>冻结积分</span></div>
+          <div><strong>410</strong><span>累计获得</span></div>
+        </div>
+      </div>
+      <div class="pay-box">
+        <a class="pay main" href="#">立即充值</a>
+        <div class="pay-row">
+          <a class="pay" href="#">支付宝充值</a>
+          <a class="pay" href="#">微信充值</a>
+          <a class="pay" href="#engineerCard">工程师卡兑换</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel section" id="engineerCard">
+      <h2>工程师卡兑换</h2>
+      <div class="exchange">
+        <input placeholder="请输入工程师卡 / 顾问卡 / 专家卡卡密" />
+        <button class="btn primary" type="button">兑换</button>
+      </div>
+      <div class="note">兑换成功后开通对应权限；工程师卡用户可回答悬赏问题。</div>
+    </section>
+
+    <section class="panel section" id="records">
+      <h2>账户流水</h2>
+      <table class="table">
+        <thead><tr><th>时间</th><th>类型</th><th>说明</th><th>积分变动</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td>2026-07-03 09:20</td><td>充值</td><td>微信充值到账</td><td class="income">+100 积分</td><td>已完成</td></tr>
+          <tr><td>2026-07-03 08:40</td><td>工程师卡兑换</td><td>卡密兑换工程师月卡权益</td><td class="income">+500 积分</td><td>已完成</td></tr>
+          <tr><td>2026-07-02 16:30</td><td>悬赏冻结</td><td>发布“电源轻载啸叫”悬赏问题</td><td class="out">-50 积分</td><td>冻结中</td></tr>
+          <tr><td>2026-07-01 18:10</td><td>打赏</td><td>打赏“内阻复测流程”回答</td><td class="out">-20 积分</td><td>已完成</td></tr>
+          <tr><td>2026-06-30 11:42</td><td>奖励</td><td>每周加精帖奖励</td><td class="income">+50 积分</td><td>已完成</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

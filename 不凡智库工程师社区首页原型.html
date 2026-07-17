@@ -1,0 +1,1799 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>不凡智库工程师社区首页原型</title>
+  <style>
+    :root {
+      --bg: #f5f6f8;
+      --panel: #ffffff;
+      --soft: #f8fafc;
+      --line: #e6e9ef;
+      --text: #20242a;
+      --muted: #6f7784;
+      --red: #df1d2d;
+      --red-dark: #b91625;
+      --red-soft: #fff1f3;
+      --blue: #246bfe;
+      --blue-soft: #eef4ff;
+      --green: #0f9f6e;
+      --gold: #a96500;
+      --gold-soft: #fff4df;
+      --shadow: 0 8px 24px rgba(23, 31, 42, .06);
+      --radius: 8px;
+      --max: 1280px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    button { cursor: pointer; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, .96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+    }
+    .topbar-inner {
+      width: min(var(--max), calc(100vw - 40px));
+      height: 64px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 250px minmax(260px, 1fr) auto;
+      gap: 18px;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 8px;
+      border: 1px solid #f0c5ca;
+      background: linear-gradient(135deg, rgba(223,29,45,.14), rgba(36,107,254,.08)), #fff;
+      display: grid;
+      place-items: center;
+    }
+    .brand-mark::before {
+      content: "";
+      width: 25px;
+      height: 17px;
+      display: block;
+      border: 3px solid var(--red);
+      border-left-width: 7px;
+      transform: skewX(-14deg);
+    }
+    .brand-title {
+      display: block;
+      color: var(--red);
+      font-weight: 900;
+      font-size: 19px;
+      white-space: nowrap;
+    }
+    .brand-subtitle {
+      display: block;
+      color: #34506d;
+      font-size: 12px;
+      margin-top: -2px;
+      white-space: nowrap;
+    }
+    .search input {
+      width: 100%;
+      height: 36px;
+      border: 1px solid #d9dfe8;
+      border-radius: 6px;
+      padding: 0 12px;
+      outline: none;
+      background: #fff;
+    }
+    .search input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(36, 107, 254, .12);
+    }
+    .user-tools {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      height: 36px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: #fff;
+      color: var(--text);
+      white-space: nowrap;
+    }
+    .btn.primary {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+      font-weight: 800;
+    }
+    .btn.primary:hover { background: var(--red-dark); }
+    .btn.text { border-color: transparent; padding: 0 6px; color: var(--muted); }
+    .top-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #eaf1ff, #fff2f3);
+      color: var(--blue);
+      font-weight: 900;
+      border: 1px solid #dbe6ff;
+    }
+    .user-meta { text-align: right; font-size: 12px; color: var(--muted); }
+    .user-meta strong { display: block; color: var(--red); font-size: 13px; }
+
+    .page {
+      width: min(var(--max), calc(100vw - 40px));
+      margin: 18px auto 48px;
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr) 286px;
+      gap: 14px;
+      align-items: start;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .nav-panel {
+      position: sticky;
+      top: 82px;
+      max-height: calc(100vh - 104px);
+      overflow: auto;
+      padding: 12px;
+      box-shadow: none;
+    }
+    .nav-main,
+    .nav-head,
+    .nav-sub {
+      min-height: 36px;
+      border-radius: 6px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+    }
+    .nav-main {
+      margin-bottom: 6px;
+      background: var(--soft);
+      font-weight: 800;
+    }
+    .nav-main.active,
+    .nav-main:hover,
+    .nav-sub:hover,
+    .nav-sub.active {
+      background: var(--red-soft);
+      color: var(--red);
+      font-weight: 800;
+    }
+    .nav-head {
+      margin-top: 8px;
+      border-top: 1px solid var(--line);
+      border-radius: 0;
+      color: var(--text);
+      font-weight: 800;
+    }
+    .nav-sub {
+      margin: 2px 0;
+      color: #3e4652;
+      font-size: 13px;
+    }
+
+    .main { min-width: 0; }
+    .breadcrumb {
+      height: 36px;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      margin-bottom: 14px;
+      color: var(--muted);
+      font-size: 13px;
+      box-shadow: none;
+    }
+    .hero {
+      margin-bottom: 14px;
+      padding: 20px 22px;
+      overflow: hidden;
+      border: 0;
+      color: #fff;
+      background:
+        linear-gradient(90deg, rgba(137, 13, 25, .97), rgba(193, 24, 38, .92), rgba(223, 29, 45, .82)),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.14) 0 1px, transparent 1px 18px);
+      position: relative;
+    }
+    .hero h1 {
+      margin: 0 0 6px;
+      font-size: 24px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+    .hero p {
+      margin: 0;
+      width: min(660px, 74%);
+      color: rgba(255,255,255,.88);
+    }
+    .hero-badges {
+      position: absolute;
+      right: 22px;
+      top: 18px;
+      display: grid;
+      gap: 8px;
+    }
+    .hero-badges span {
+      border: 1px solid rgba(255,255,255,.36);
+      border-radius: 999px;
+      padding: 5px 11px;
+      font-weight: 800;
+      background: rgba(255,255,255,.08);
+      text-align: center;
+    }
+
+    .composer {
+      margin-bottom: 14px;
+      padding: 14px 16px;
+    }
+    .composer textarea,
+    .composer input,
+    .composer select {
+      width: 100%;
+      border: 1px solid #d9dfe8;
+      border-radius: 6px;
+      padding: 9px 10px;
+      outline: none;
+      background: #fff;
+    }
+    .composer textarea:focus,
+    .composer input:focus,
+    .composer select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(36,107,254,.11);
+    }
+    .composer > textarea {
+      min-height: 92px;
+      resize: vertical;
+      padding: 12px;
+    }
+    .composer-meta,
+    .composer-actions {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .quick-tools {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .quick-tools .btn,
+    .composer-actions .btn {
+      height: 32px;
+      font-size: 13px;
+      padding: 0 11px;
+    }
+    .publish-panel {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+    }
+    .publish-panel.active { display: block; }
+    .type-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .type-tab {
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 999px;
+      height: 30px;
+      padding: 0 12px;
+      color: #3f4854;
+    }
+    .type-tab.active {
+      background: var(--red);
+      color: #fff;
+      border-color: var(--red);
+      font-weight: 800;
+    }
+    .form-grid {
+      display: grid;
+      gap: 10px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .field { display: grid; gap: 6px; color: #3f4854; font-size: 13px; }
+    .field textarea { min-height: 74px; resize: vertical; }
+    .help {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .notice {
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--red-soft);
+      border: 1px solid #ffd7dc;
+      color: #8a1520;
+      font-size: 13px;
+    }
+    .notice.blue {
+      background: var(--blue-soft);
+      border-color: #d8e5ff;
+      color: #174ea6;
+    }
+    .notice.green {
+      background: #eaf8f2;
+      border-color: #c8ecdd;
+      color: #09704d;
+    }
+    .status {
+      display: none;
+      margin-top: 10px;
+      padding: 9px 10px;
+      border-radius: 6px;
+      font-size: 13px;
+    }
+    .status.show { display: block; }
+    .status.error { background: var(--red-soft); color: #8a1520; border: 1px solid #ffd7dc; }
+    .status.success { background: #eaf8f2; color: #09704d; border: 1px solid #c8ecdd; }
+
+    .section {
+      margin-bottom: 14px;
+      padding: 16px;
+    }
+    .section-title {
+      margin: 0 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 16px;
+    }
+    .section-title small {
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 12px;
+    }
+    .pin-list { display: grid; gap: 8px; }
+    .pin-card {
+      display: grid;
+      grid-template-columns: 88px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 10px 12px;
+      background: var(--soft);
+      min-height: 58px;
+    }
+    .pin-type {
+      height: 28px;
+      border-radius: 4px;
+      background: var(--red-soft);
+      color: var(--red);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 12px;
+    }
+    .pin-card strong { display: block; margin-bottom: 2px; }
+    .pin-card span span { color: var(--muted); font-size: 13px; }
+    .pin-meta { color: var(--muted); font-size: 12px; white-space: nowrap; }
+
+    .bounty-window {
+      height: 242px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bounty-list {
+      display: grid;
+      gap: 10px;
+      animation: bountyRoll 18s linear infinite;
+    }
+    .bounty-window:hover .bounty-list { animation-play-state: paused; }
+    .bounty-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid #ffe0ad;
+      background: #fffaf0;
+      border-radius: 6px;
+      padding: 11px 12px;
+    }
+    .bounty-item strong { display: block; margin-bottom: 4px; }
+    .bounty-item span span { color: var(--muted); font-size: 12px; }
+    .bounty-label {
+      min-width: 76px;
+      height: 30px;
+      border-radius: 999px;
+      background: #fff;
+      color: #1f2630;
+      border: 1px solid #ffd7dc;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      font-weight: 900;
+    }
+    .wallet-icon {
+      width: 22px;
+      height: 20px;
+      border-radius: 7px 7px 6px 6px;
+      background: var(--red);
+      display: inline-block;
+      position: relative;
+      flex: 0 0 auto;
+    }
+    .wallet-icon::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: -4px;
+      width: 10px;
+      height: 7px;
+      border-radius: 8px 8px 0 0;
+      background: var(--red);
+    }
+    .wallet-icon::after {
+      content: "¥";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1;
+    }
+    @keyframes bountyRoll {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    .feed { padding: 0 0 6px; }
+    .feed-head {
+      padding: 14px 16px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+    }
+    .tabs { display: flex; gap: 18px; }
+    .tab {
+      border: 0;
+      background: none;
+      padding: 0 0 11px;
+      color: var(--muted);
+      border-bottom: 2px solid transparent;
+      font-weight: 800;
+    }
+    .tab.active { color: var(--red); border-color: var(--red); }
+    .feed-filter { color: var(--muted); font-size: 13px; padding-bottom: 11px; }
+    .view-panel[hidden] { display: none !important; }
+    .view-note {
+      padding: 12px 16px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .expert-view {
+      padding: 0 0 8px;
+    }
+    .expert-toolbar {
+      padding: 14px 16px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 14px;
+    }
+    .expert-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .expert-tab,
+    .scope-chip {
+      height: 30px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0 12px;
+      background: #fff;
+      color: #3f4854;
+    }
+    .expert-tab.active,
+    .scope-chip.active {
+      background: var(--red);
+      border-color: var(--red);
+      color: #fff;
+      font-weight: 800;
+    }
+    .expert-meta {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+    .expert-grid {
+      padding: 0 16px 14px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.45fr) minmax(300px, .95fr);
+      gap: 14px;
+    }
+    .expert-card {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      display: grid;
+      grid-template-columns: 116px minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+    .expert-avatar {
+      width: 116px;
+      min-height: 150px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #d8ecff, #fff2f3);
+      border: 1px solid #d9e6ff;
+      color: var(--red);
+      display: grid;
+      place-items: center;
+      font-weight: 900;
+      font-size: 34px;
+      letter-spacing: 0;
+    }
+    .expert-headline {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .expert-name {
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+    .expert-subline {
+      color: #4a5563;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+    .expert-desc {
+      color: #4d5662;
+      font-size: 13px;
+      margin: 0 0 10px;
+    }
+    .expert-stat-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0;
+    }
+    .expert-chip {
+      height: 26px;
+      padding: 0 9px;
+      border-radius: 999px;
+      background: #fff;
+      border: 1px solid var(--line);
+      color: #3f4854;
+      display: inline-flex;
+      align-items: center;
+    }
+    .reserve-box {
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+    }
+    .reserve-title {
+      margin: 0 0 10px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      font-size: 16px;
+    }
+    .reserve-title small {
+      color: var(--muted);
+      font-weight: 400;
+      font-size: 12px;
+    }
+    .date-strip {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .date-card {
+      min-height: 72px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
+      padding: 10px 8px;
+      text-align: center;
+      color: #394150;
+    }
+    .date-card strong { display: block; margin-top: 4px; font-size: 16px; }
+    .date-card.active {
+      background: #f0f5ff;
+      border-color: #bcd1ff;
+      color: var(--blue);
+      font-weight: 800;
+    }
+    .slot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+    .slot {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fff;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: #38414f;
+    }
+    .slot.active {
+      border-color: var(--red);
+      background: var(--red-soft);
+      color: var(--red);
+      font-weight: 800;
+    }
+    .reserve-form {
+      display: grid;
+      gap: 10px;
+    }
+    .reserve-form .field textarea {
+      min-height: 86px;
+    }
+    .expert-list {
+      display: grid;
+      gap: 10px;
+    }
+    .expert-mini {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 12px;
+      background: #fff;
+    }
+    .expert-mini .mini-avatar {
+      width: 86px;
+      height: 86px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #dcecff, #fff4f6);
+      display: grid;
+      place-items: center;
+      color: var(--red);
+      font-size: 24px;
+      font-weight: 900;
+    }
+    .expert-mini .mini-name {
+      font-weight: 900;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .expert-mini .mini-meta {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+    .expert-mini .mini-desc {
+      color: #4d5662;
+      font-size: 13px;
+    }
+    .post { padding: 16px; border-bottom: 1px solid var(--line); }
+    .post:last-child { border-bottom: 0; }
+    .post-top {
+      display: grid;
+      grid-template-columns: 42px minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: start;
+    }
+    .avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #eaf1ff, #fff2f3);
+      color: var(--blue);
+      font-weight: 900;
+      border: 1px solid #dbe6ff;
+    }
+    .author-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .author-name { color: var(--text); font-weight: 800; font-size: 13px; }
+    .badge {
+      height: 20px;
+      border-radius: 999px;
+      padding: 0 7px;
+      display: inline-flex;
+      align-items: center;
+      color: var(--blue);
+      background: var(--blue-soft);
+      font-size: 12px;
+      font-weight: 800;
+    }
+    .medal { color: var(--gold); background: var(--gold-soft); }
+    .tag {
+      height: 24px;
+      border-radius: 4px;
+      padding: 0 8px;
+      display: inline-flex;
+      align-items: center;
+      color: var(--muted);
+      background: var(--soft);
+      font-size: 12px;
+      border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .post h3 { margin: 0 0 6px; font-size: 16px; line-height: 1.45; }
+    .post p { margin: 0; color: #4d5662; font-size: 13px; }
+    .post-stats {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .stat {
+      height: 28px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 0 9px;
+      display: inline-flex;
+      align-items: center;
+      background: #fff;
+    }
+    .reward { color: var(--red); background: var(--red-soft); border-color: #ffd7dc; font-weight: 900; }
+    .featured { color: var(--green); background: #eaf8f2; border-color: #c8ecdd; font-weight: 900; }
+
+    .right-rail { display: grid; gap: 14px; }
+    .rail-card { padding: 14px 16px; box-shadow: none; }
+    .mall-logo { color: var(--red); font-weight: 900; font-size: 18px; }
+    .mall-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .mall-showcase {
+      height: 72px;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(36,107,254,.16), rgba(223,29,45,.12));
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      color: #314154;
+      font-weight: 800;
+    }
+    .expert-promo { padding: 0; overflow: hidden; box-shadow: none; }
+    .expert-link {
+      height: 38px;
+      padding: 0 18px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      color: var(--blue);
+      font-weight: 800;
+    }
+    .expert-visual {
+      min-height: 176px;
+      margin: 0 16px 16px;
+      background: #cfd5dc;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 122px;
+      align-items: center;
+      padding: 22px 10px 18px 26px;
+    }
+    .expert-copy {
+      color: #4f5864;
+      font-size: 24px;
+      line-height: 1.2;
+      font-weight: 900;
+      letter-spacing: 0;
+      z-index: 1;
+    }
+    .expert-copy strong {
+      display: block;
+      color: #343b45;
+      font-size: 26px;
+      margin-top: 4px;
+    }
+    .expert-portrait {
+      width: 108px;
+      height: 138px;
+      justify-self: end;
+      align-self: end;
+      position: relative;
+      z-index: 1;
+    }
+    .expert-head {
+      width: 54px;
+      height: 54px;
+      margin: 0 auto;
+      border-radius: 50%;
+      background: #f1d1b8;
+      border: 4px solid #394654;
+      position: relative;
+      z-index: 2;
+    }
+    .expert-head::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 24px;
+      height: 5px;
+      border-top: 2px solid #5b473b;
+      border-bottom: 2px solid #5b473b;
+    }
+    .expert-body {
+      width: 102px;
+      height: 88px;
+      margin: -6px auto 0;
+      border-radius: 34px 34px 0 0;
+      background: linear-gradient(135deg, #26384b, #52677a);
+      position: relative;
+    }
+    .expert-body::after {
+      content: "";
+      position: absolute;
+      width: 92px;
+      height: 20px;
+      left: -8px;
+      top: 38px;
+      border-radius: 999px;
+      background: #f0ceb5;
+      transform: rotate(-12deg);
+      box-shadow: 42px 10px 0 -2px #e4c0a4;
+    }
+    .task-list { display: grid; gap: 8px; }
+    .task {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 9px;
+      border-radius: 6px;
+      background: var(--soft);
+      font-size: 13px;
+    }
+    .task span { color: var(--muted); font-size: 12px; }
+    .task button {
+      height: 28px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fff;
+      padding: 0 8px;
+      color: var(--red);
+      font-weight: 800;
+      white-space: nowrap;
+    }
+    .rank-list { display: grid; gap: 8px; }
+    .rank-group-title {
+      margin: 10px 0 6px;
+      color: var(--red);
+      font-weight: 900;
+      font-size: 13px;
+    }
+    .rank-item {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr) auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px 9px;
+      border-radius: 6px;
+      background: var(--soft);
+      font-size: 13px;
+    }
+    .rank-item.first {
+      padding: 10px;
+      background: var(--red-soft);
+      border: 1px solid #ffd7dc;
+    }
+    .rank-no {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      color: var(--red);
+      font-weight: 900;
+      border: 1px solid #ffd7dc;
+    }
+    .rank-name { font-weight: 800; }
+    .rank-score { color: var(--muted); font-size: 12px; white-space: nowrap; }
+    .activity-list { display: grid; gap: 8px; }
+    .activity-item {
+      display: grid;
+      gap: 4px;
+      padding: 10px;
+      border-radius: 6px;
+      background: var(--soft);
+      border-left: 3px solid var(--red);
+      font-size: 13px;
+    }
+    .activity-item strong { color: var(--text); }
+    .activity-item span { color: var(--muted); font-size: 12px; }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+    .data-box {
+      background: var(--soft);
+      border-radius: 6px;
+      padding: 10px 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .data-box strong {
+      display: block;
+      color: var(--red);
+      font-size: 17px;
+      line-height: 1.1;
+      margin-top: 3px;
+    }
+    .list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+    .list li {
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+      color: #3f4854;
+      font-size: 13px;
+    }
+    .list li:last-child { border-bottom: 0; padding-bottom: 0; }
+    .ticker { height: 116px; overflow: hidden; }
+    .ticker-track { display: grid; gap: 8px; animation: ticker 13s linear infinite; }
+    .ticker:hover .ticker-track { animation-play-state: paused; }
+    .ticker-item {
+      min-height: 28px;
+      background: var(--soft);
+      border-radius: 6px;
+      padding: 7px 9px;
+      color: #485160;
+      font-size: 13px;
+    }
+    .ticker-item strong { color: var(--red); }
+    @keyframes ticker {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    @media (max-width: 1120px) {
+      .topbar-inner,
+      .page { width: min(100vw - 24px, var(--max)); }
+      .page { grid-template-columns: 220px minmax(0, 1fr); }
+      .right-rail { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 780px) {
+      .topbar-inner {
+        height: auto;
+        padding: 10px 0;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+      .page { grid-template-columns: 1fr; }
+      .nav-panel { position: static; max-height: none; }
+      .right-rail { grid-template-columns: 1fr; }
+      .hero p { width: 100%; }
+      .hero-badges { position: static; display: flex; flex-wrap: wrap; margin-top: 12px; }
+      .pin-card,
+      .post-top,
+      .bounty-item,
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="不凡智库工程师社区首页原型.html">
+        <span class="brand-mark"></span>
+        <span>
+          <span class="brand-title">不凡智库</span>
+          <span class="brand-subtitle">制造技术共享平台</span>
+        </span>
+      </a>
+      <div class="search">
+        <input type="search" placeholder="搜索技术问题、操作视频、说明书、行业标准" />
+      </div>
+      <div class="user-tools">
+        <button class="btn text" type="button">消息</button>
+        <button class="btn" type="button" id="askTop">提问</button>
+        <button class="btn primary" type="button" id="publishTop">发布</button>
+        <a class="top-avatar" href="我的主页.html" title="我的主页">不凡</a>
+        <a class="user-meta" href="我的主页.html">
+          <strong>不凡</strong>
+          <span>Lv.3</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="page">
+    <aside class="panel nav-panel">
+      <a class="nav-main active" href="#" data-view="all">全部帖子</a>
+      <a class="nav-main" href="#" data-view="bounty">待解悬赏榜</a>
+
+      <div class="nav-head">技术问答区</div>
+      <a class="nav-sub js-board" href="#" data-board="电源技术区">电源技术区</a>
+      <a class="nav-sub js-board" href="#" data-board="电力电子">电力电子</a>
+      <a class="nav-sub js-board" href="#" data-board="锂电池 / 储能">锂电池 / 储能</a>
+      <a class="nav-sub js-board" href="#" data-board="电动汽车 / 充电桩">电动汽车 / 充电桩</a>
+      <a class="nav-sub js-board" href="#" data-board="具身智能机器人">具身智能机器人</a>
+      <a class="nav-sub js-board" href="#" data-board="测试测量">测试测量</a>
+      <a class="nav-sub js-board" href="#" data-board="MCU / 嵌入式">MCU / 嵌入式</a>
+      <a class="nav-sub js-board" href="#" data-board="拆解实验室">拆解实验室</a>
+
+      <div class="nav-head">共享资料库</div>
+      <a class="nav-sub" href="操作视频.html">操作视频</a>
+      <a class="nav-sub" href="设备说明书.html">设备说明书</a>
+      <a class="nav-sub" href="行业标准.html">行业标准</a>
+
+      <div class="nav-head">非技术交流区</div>
+      <a class="nav-sub js-board" href="#" data-board="杂谈区">杂谈区</a>
+      <a class="nav-sub js-board" href="#" data-board="招聘 / 求职">招聘 / 求职</a>
+      <a class="nav-sub js-board" href="#" data-board="站务及投诉服务">站务及投诉服务</a>
+
+      <div class="nav-head">前沿资讯</div>
+      <a class="nav-sub js-board" href="#" data-board="行业展会">行业展会</a>
+      <a class="nav-sub js-board" href="#" data-board="行业论坛">行业论坛</a>
+      <a class="nav-sub js-board" href="#" data-board="投融资讯">投融资讯</a>
+      <a class="nav-sub js-board" href="#" data-board="IPO上市资讯">IPO上市资讯</a>
+      <a class="nav-sub js-board" href="#" data-board="科技资讯">科技资讯</a>
+
+      <div class="nav-head">共享实验室</div>
+      <a class="nav-sub js-board" href="#" data-board="不凡总部实验室">不凡总部实验室</a>
+      <a class="nav-sub" href="高校实验室.html">高校实验室</a>
+      <a class="nav-sub js-board" href="#" data-board="爱心企业实验室">爱心企业实验室</a>
+
+      <div class="nav-head">名师专家</div>
+      <a class="nav-sub" href="名师专家.html#professor">名校教授</a>
+      <a class="nav-sub" href="名师专家.html#technical">技术专家</a>
+      <a class="nav-sub" href="名师专家.html#industry">产业专家</a>
+
+      <div class="nav-head">沙龙板块</div>
+      <a class="nav-sub js-board" href="#" data-board="线下沙龙">线下沙龙</a>
+      <a class="nav-sub js-board" href="#" data-board="线上沙龙">线上沙龙</a>
+      <a class="nav-sub js-board" href="#" data-board="产业论坛">产业论坛</a>
+      <a class="nav-sub js-board" href="#" data-board="学术论坛">学术论坛</a>
+
+      <div class="nav-head">创新服务商</div>
+      <a class="nav-sub js-board" href="#" data-board="专利服务">专利服务</a>
+      <a class="nav-sub js-board" href="#" data-board="数字化服务">数字化服务</a>
+      <a class="nav-sub js-board" href="#" data-board="3D打印服务">3D打印服务</a>
+      <a class="nav-sub js-board" href="#" data-board="电子方案开发">电子方案开发</a>
+      <a class="nav-sub js-board" href="#" data-board="检测服务">检测服务</a>
+      <a class="nav-sub js-board" href="#" data-board="科技项目申报">科技项目申报</a>
+    </aside>
+
+    <main class="main">
+      <div class="panel breadcrumb" id="breadcrumb">当前位置：全部帖子 · 这里只做聚合展示，发布时请选择具体板块</div>
+
+      <section class="panel hero">
+        <h1>不凡智库等你来</h1>
+      </section>
+
+      <section class="panel composer" id="composer">
+        <textarea maxlength="1000" id="quickText" placeholder="分享一个图片、视频，或发布悬赏提问..."></textarea>
+        <div class="composer-meta">
+          <span id="wordCount">0/1000</span>
+          <span>首页仅支持图片、视频和悬赏提问；资料、标准和操作视频请到共享资料库上传</span>
+        </div>
+        <div class="composer-actions">
+          <div class="quick-tools">
+            <button class="btn" type="button" data-open-type="image">图片</button>
+            <button class="btn" type="button" data-open-type="video">视频</button>
+            <button class="btn" type="button" data-open-type="bounty">悬赏提问</button>
+          </div>
+          <button class="btn primary" type="button" id="openPublish">继续发布</button>
+        </div>
+        <input id="imageUploadInput" type="file" accept="image/*" hidden />
+        <input id="videoUploadInput" type="file" accept="video/*" hidden />
+
+        <div class="publish-panel" id="publishPanel">
+          <div class="type-tabs" aria-label="发布类型">
+            <button class="type-tab active" type="button" data-type="image">图片</button>
+            <button class="type-tab" type="button" data-type="video">视频</button>
+            <button class="type-tab" type="button" data-type="bounty">悬赏提问</button>
+          </div>
+
+          <div class="form-grid">
+            <label class="field">
+              发布板块
+              <select id="boardSelect">
+                <option value="全部帖子">全部帖子（不可直接发布）</option>
+                <optgroup label="技术问答区">
+                  <option>电源技术区</option>
+                  <option>电力电子</option>
+                  <option>锂电池 / 储能</option>
+                  <option>电动汽车 / 充电桩</option>
+                  <option>具身智能机器人</option>
+                  <option>测试测量</option>
+                  <option>MCU / 嵌入式</option>
+                  <option>拆解实验室</option>
+                </optgroup>
+                <optgroup label="非技术交流区">
+                  <option>杂谈区</option>
+                  <option>招聘 / 求职</option>
+                  <option>站务及投诉服务</option>
+                </optgroup>
+                <optgroup label="前沿资讯">
+                  <option>行业展会</option>
+                  <option>行业论坛</option>
+                  <option>投融资讯</option>
+                  <option>IPO上市资讯</option>
+                  <option>科技资讯</option>
+                </optgroup>
+                <optgroup label="共享实验室">
+                  <option>不凡总部实验室</option>
+                  <option>高校实验室</option>
+                  <option>爱心企业实验室</option>
+                </optgroup>
+                <optgroup label="名师专家 / 沙龙 / 服务商">
+                  <option>技术专家</option>
+                  <option>产业专家</option>
+                  <option>线上沙龙</option>
+                  <option>线下沙龙</option>
+                  <option>专利服务</option>
+                  <option>检测服务</option>
+                </optgroup>
+              </select>
+              <span class="help">先选板块，再选发布类型。全部帖子只能聚合查看，不能作为发布板块；资料、标准和操作视频请到共享资料库对应页面上传。</span>
+            </label>
+
+            <div class="form-grid publish-form" id="form-image">
+              <label class="field">图片标题<input placeholder="例如：充电桩高温测试现场记录" /></label>
+              <label class="field">图片说明<textarea placeholder="补充图片背景、设备型号、测试场景或需要讨论的问题"></textarea></label>
+              <button class="btn" type="button" data-upload-trigger="image">选择图片文件</button>
+              <div class="help" id="imageFileName">支持从本地选择图片文件，提交后作为图片帖展示。</div>
+            </div>
+
+            <div class="form-grid publish-form" id="form-video" hidden>
+              <label class="field">视频标题<input placeholder="例如：产线测试异常现象记录" /></label>
+              <label class="field">视频说明<textarea placeholder="补充视频背景、设备型号、操作场景或需要讨论的问题"></textarea></label>
+              <button class="btn" type="button" data-upload-trigger="video">选择视频文件</button>
+              <div class="help" id="videoFileName">支持从本地选择视频文件，提交后作为视频帖展示。操作教程类视频请到共享资料库上传。</div>
+            </div>
+
+            <div class="form-grid publish-form" id="form-bounty" hidden>
+              <div class="notice blue">回答悬赏问题需持有工程师卡。悬赏采用积分制，1 积分 = 1 元；发布悬赏时积分余额不足将无法成功发布。</div>
+              <label class="field">问题标题<input placeholder="出现的问题，例如：锂电池包低温测试容量衰减异常" /></label>
+              <label class="field">问题描述<textarea placeholder="描述现象、设备型号、测试条件、异常截图或视频"></textarea></label>
+              <div class="form-row">
+                <label class="field">已尝试方法<input placeholder="例如：已更换夹具、复测两轮、检查温箱曲线" /></label>
+                <label class="field">希望达成的结果<input placeholder="例如：判断原因并给出复测流程" /></label>
+              </div>
+              <div class="form-row">
+                <label class="field">悬赏积分（1 积分 = 1 元）<input id="bountyAmount" type="number" min="1" placeholder="例如 100" /></label>
+                <label class="field">答案公开设置<select><option>公开</option><option>不公开</option></select></label>
+              </div>
+              <div class="help">用户须知：积分已扣除，采纳后全额结算给答主，平台不抽成。72 小时无人回答：问题关闭，悬赏积分退回。</div>
+            </div>
+
+            <div class="status" id="publishStatus"></div>
+            <button class="btn primary" type="button" id="submitPost">确认发布</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel section">
+        <h2 class="section-title">置顶帖 <small>后台配置，展示重要通知和推荐内容</small></h2>
+        <div class="pin-list">
+          <a class="pin-card" href="#">
+            <span class="pin-type">重要通知</span>
+            <span><strong>不凡智库社区规则与工程师卡申请说明</strong><span>后台可置顶平台规则、活动说明、服务入口等重要信息。</span></span>
+            <span class="pin-meta">置顶</span>
+          </a>
+          <a class="pin-card" href="#">
+            <span class="pin-type">推荐内容</span>
+            <span><strong>共享资料库上传入口已迁移</strong><span>操作视频、设备说明书和行业标准请到共享资料库对应页面上传。</span></span>
+            <span class="pin-meta">置顶</span>
+          </a>
+          <a class="pin-card" href="#">
+            <span class="pin-type">服务入口</span>
+            <span><strong>共享实验室预约申请流程说明</strong><span>可置顶共享实验室、高校实验室、专家服务等关键入口。</span></span>
+            <span class="pin-meta">置顶</span>
+          </a>
+        </div>
+      </section>
+
+      <section class="panel section">
+        <h2 class="section-title">待解悬赏榜 <small>三个为一组滚动展示，悬赏帖优先曝光</small></h2>
+        <div class="notice blue" style="margin-bottom:10px;">积分悬赏：1 积分 = 1 元。回答悬赏问题需持有工程师卡。</div>
+        <div class="bounty-window">
+          <div class="bounty-list">
+            <a class="bounty-item" href="待解悬赏榜.html">
+              <span><strong>锂电池包低温测试容量衰减异常，如何判断样品问题还是测试流程问题？</strong><span>锂电池 / 储能 · 2 个回答 · 待采纳</span></span>
+              <span class="bounty-label"><span class="wallet-icon" aria-hidden="true"></span><span>500</span></span>
+            </a>
+            <a class="bounty-item" href="待解悬赏榜.html">
+              <span><strong>开关电源满载 30 分钟后纹波突然变大，优先排查哪几处？</strong><span>电源技术区 · 暂无回答 · 72 小时无人回答自动退回</span></span>
+              <span class="bounty-label"><span class="wallet-icon" aria-hidden="true"></span><span>300</span></span>
+            </a>
+            <a class="bounty-item" href="待解悬赏榜.html">
+              <span><strong>MCU 睡眠唤醒后串口偶发乱码，有没有稳定复现和抓取办法？</strong><span>MCU / 嵌入式 · 5 个回答 · 可申诉争议采纳</span></span>
+              <span class="bounty-label"><span class="wallet-icon" aria-hidden="true"></span><span>100</span></span>
+            </a>
+            <a class="bounty-item" href="待解悬赏榜.html">
+              <span><strong>某型号示波器数据导出步骤有没有完整操作视频？</strong><span>操作视频 · 暂无回答 · 运营分发中</span></span>
+              <span class="bounty-label"><span class="wallet-icon" aria-hidden="true"></span><span>80</span></span>
+            </a>
+            <a class="bounty-item" href="待解悬赏榜.html">
+              <span><strong>储能柜现场通信偶发中断，BMS 和网关排查顺序怎么定？</strong><span>锂电池 / 储能 · Lv.3+ 提醒中</span></span>
+              <span class="bounty-label"><span class="wallet-icon" aria-hidden="true"></span><span>500</span></span>
+            </a>
+            <a class="bounty-item" href="待解悬赏榜.html">
+              <span><strong>求某品牌电池测试柜说明书，重点需要通道校准和报警码说明。</strong><span>设备说明书 · 1 个线索 · 待确认</span></span>
+              <span class="bounty-label"><span class="wallet-icon" aria-hidden="true"></span><span>50</span></span>
+            </a>
+            <a class="bounty-item" href="待解悬赏榜.html">
+              <span><strong>锂电池包低温测试容量衰减异常，如何判断样品问题还是测试流程问题？</strong><span>锂电池 / 储能 · 2 个回答 · 待采纳</span></span>
+              <span class="bounty-label"><span class="wallet-icon" aria-hidden="true"></span><span>500</span></span>
+            </a>
+            <a class="bounty-item" href="待解悬赏榜.html">
+              <span><strong>开关电源满载 30 分钟后纹波突然变大，优先排查哪几处？</strong><span>电源技术区 · 暂无回答 · 72 小时无人回答自动退回</span></span>
+              <span class="bounty-label"><span class="wallet-icon" aria-hidden="true"></span><span>300</span></span>
+            </a>
+            <a class="bounty-item" href="待解悬赏榜.html">
+              <span><strong>MCU 睡眠唤醒后串口偶发乱码，有没有稳定复现和抓取办法？</strong><span>MCU / 嵌入式 · 5 个回答 · 可申诉争议采纳</span></span>
+              <span class="bounty-label"><span class="wallet-icon" aria-hidden="true"></span><span>100</span></span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel view-panel" id="communityView" data-view-panel="community">
+        <div class="feed-head">
+          <div class="tabs" role="tablist" aria-label="帖子排序">
+            <button class="tab active" type="button" data-sort="hot">按热度</button>
+            <button class="tab" type="button" data-sort="new">按发布时间</button>
+          </div>
+          <span class="feed-filter" id="sortHint">正在展示：全部帖子 · 热度较高的内容</span>
+        </div>
+        <div class="view-note">点击左侧“全部帖子 / 待解悬赏榜”可在同一中间区域来回切换；待解悬赏榜支持按发布时间或热度排序。</div>
+
+        <div id="allFeedList">
+          <article class="post" data-hot="96" data-new="2">
+            <div class="post-top">
+              <a class="avatar" href="他人主页.html">梁</a>
+              <div>
+                <div class="author-line">
+                  <span class="author-name">梁工在现场</span>
+                  <span class="badge">Lv.4 资深工程师</span>
+                  <span class="badge medal">测试达人</span>
+                  <span>12 分钟前 · 回复很快</span>
+                </div>
+                <h3>充电桩高温满载测试时，功率模块温升异常该先查哪几项？</h3>
+                <p>现场两台设备在 42℃ 环境下连续跑 3 小时后报警，风道和风扇看起来正常，想听听大家的排查顺序。</p>
+                <div class="post-stats">
+                  <span class="stat">浏览 428</span>
+                  <span class="stat">回复 36</span>
+                  <span class="stat">点赞 52</span>
+                  <span class="stat reward">打赏 160 积分</span>
+                  <span class="stat featured">本周加精候选</span>
+                </div>
+              </div>
+              <span class="tag">电动汽车 / 充电桩</span>
+            </div>
+          </article>
+
+          <article class="post" data-hot="91" data-new="6">
+            <div class="post-top">
+              <a class="avatar" href="他人主页.html">周</a>
+              <div>
+                <div class="author-line">
+                  <span class="author-name">周工仪器笔记</span>
+                  <span class="badge">Lv.3 正式工程师</span>
+                  <span class="badge medal">资料贡献者</span>
+                  <span>刚刚 · 操作视频</span>
+                </div>
+                <h3>某型号功率分析仪数据导出操作视频：从连接电脑到生成报表</h3>
+                <p>补了 4 个关键步骤，尤其是驱动识别和通道命名，适合第一次接触这款仪器的工程师。</p>
+                <div class="post-stats">
+                  <span class="stat">浏览 386</span>
+                  <span class="stat">收藏 74</span>
+                  <span class="stat">点赞 45</span>
+                  <span class="stat reward">奖励 50 积分</span>
+                </div>
+              </div>
+              <span class="tag">操作视频</span>
+            </div>
+          </article>
+
+          <article class="post" data-hot="88" data-new="5">
+            <div class="post-top">
+              <a class="avatar" href="他人主页.html">苏</a>
+              <div>
+                <div class="author-line">
+                  <span class="author-name">苏打电源</span>
+                  <span class="badge">Lv.3 正式工程师</span>
+                  <span class="badge medal">热心答主</span>
+                  <span>8 分钟前 · IP 广东</span>
+                </div>
+                <h3>LLC 电源轻载啸叫，改频率还是先看变压器工艺？</h3>
+                <p>客户反馈夜间环境下声音明显，样机批次之间差异较大，想整理一套更稳的验证方法。</p>
+                <div class="post-stats">
+                  <span class="stat">浏览 315</span>
+                  <span class="stat">回复 28</span>
+                  <span class="stat">点赞 41</span>
+                  <span class="stat reward">打赏 120 积分</span>
+                </div>
+              </div>
+              <span class="tag">电源技术区</span>
+            </div>
+          </article>
+
+          <article class="post" data-hot="74" data-new="4">
+            <div class="post-top">
+              <a class="avatar" href="他人主页.html">冯</a>
+              <div>
+                <div class="author-line">
+                  <span class="author-name">冯小测</span>
+                  <span class="badge">Lv.2 见习工程师</span>
+                  <span class="badge medal">首帖勋章</span>
+                  <span>18 分钟前 · 第一篇资料帖</span>
+                </div>
+                <h3>整理了一份电池测试柜报警码说明书索引，欢迎补充品牌型号</h3>
+                <p>先放 12 个常见报警码，对应处理方式还不完整，想让大家一起补全。</p>
+                <div class="post-stats">
+                  <span class="stat">浏览 203</span>
+                  <span class="stat">回复 19</span>
+                  <span class="stat">收藏 61</span>
+                  <span class="stat reward">奖励 20 积分</span>
+                </div>
+              </div>
+              <span class="tag">设备说明书</span>
+            </div>
+          </article>
+        </div>
+
+        <div id="bountyFeedList" hidden>
+          <article class="post" data-hot="99" data-new="1">
+            <div class="post-top">
+              <a class="avatar" href="他人主页.html">戴</a>
+              <div>
+                <div class="author-line">
+                  <span class="author-name">悬赏求解</span>
+                  <span class="badge">Lv.3 正式工程师</span>
+                  <span class="badge medal">高额悬赏</span>
+                  <span>2 分钟前 · 待采纳</span>
+                </div>
+                <h3>锂电池包低温测试容量衰减异常，如何判断样品问题还是测试流程问题？</h3>
+                <p>已经做了三轮复测，现象仍然存在，希望能尽快找到复测流程和判定依据。</p>
+                <div class="post-stats">
+                  <span class="stat">回答 2</span>
+                  <span class="stat">热度 98</span>
+                  <span class="stat reward">悬赏 <span class="wallet-icon" aria-hidden="true" style="transform:scale(.78);margin-right:4px;"></span>500</span>
+                </div>
+              </div>
+              <span class="tag">锂电池 / 储能</span>
+            </div>
+          </article>
+
+          <article class="post" data-hot="92" data-new="3">
+            <div class="post-top">
+              <a class="avatar" href="他人主页.html">梁</a>
+              <div>
+                <div class="author-line">
+                  <span class="author-name">待解问题</span>
+                  <span class="badge">Lv.4 资深工程师</span>
+                  <span class="badge medal">悬赏中</span>
+                  <span>15 分钟前 · 发布时间较新</span>
+                </div>
+                <h3>开关电源满载 30 分钟后纹波突然变大，优先排查哪几处？</h3>
+                <p>想找能直接判断问题方向的经验，优先给出排查顺序和关键参数。</p>
+                <div class="post-stats">
+                  <span class="stat">回答 0</span>
+                  <span class="stat">热度 92</span>
+                  <span class="stat reward">悬赏 <span class="wallet-icon" aria-hidden="true" style="transform:scale(.78);margin-right:4px;"></span>300</span>
+                </div>
+              </div>
+              <span class="tag">电源技术区</span>
+            </div>
+          </article>
+
+          <article class="post" data-hot="85" data-new="4">
+            <div class="post-top">
+              <a class="avatar" href="他人主页.html">周</a>
+              <div>
+                <div class="author-line">
+                  <span class="author-name">设备求助</span>
+                  <span class="badge">Lv.2 见习工程师</span>
+                  <span class="badge medal">等待答复</span>
+                  <span>26 分钟前 · 资料型问题</span>
+                </div>
+                <h3>某型号示波器数据导出步骤有没有完整操作视频？</h3>
+                <p>希望直接拿到可执行视频或图文步骤，减少现场试错时间。</p>
+                <div class="post-stats">
+                  <span class="stat">回答 1</span>
+                  <span class="stat">热度 85</span>
+                  <span class="stat reward">悬赏 <span class="wallet-icon" aria-hidden="true" style="transform:scale(.78);margin-right:4px;"></span>80</span>
+                </div>
+              </div>
+              <span class="tag">操作视频</span>
+            </div>
+          </article>
+
+          <article class="post" data-hot="80" data-new="5">
+            <div class="post-top">
+              <a class="avatar" href="他人主页.html">苏</a>
+              <div>
+                <div class="author-line">
+                  <span class="author-name">现场记录</span>
+                  <span class="badge">Lv.3 正式工程师</span>
+                  <span class="badge medal">争议待定</span>
+                  <span>34 分钟前 · 申诉中</span>
+                </div>
+                <h3>储能柜现场通信偶发中断，BMS 和网关排查顺序怎么定？</h3>
+                <p>现场波动不规律，想优先找能复现问题并给出排查路径的答主。</p>
+                <div class="post-stats">
+                  <span class="stat">回答 5</span>
+                  <span class="stat">热度 80</span>
+                  <span class="stat reward">悬赏 <span class="wallet-icon" aria-hidden="true" style="transform:scale(.78);margin-right:4px;"></span>500</span>
+                </div>
+              </div>
+              <span class="tag">锂电池 / 储能</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+    </main>
+
+    <aside class="right-rail">
+      <section class="panel rail-card">
+        <div class="mall-top">
+          <div class="mall-logo">不凡商城</div>
+          <button class="btn" type="button">进入商城</button>
+        </div>
+        <div class="mall-showcase">研发、生产、实验室工具和测试仪器采购入口</div>
+      </section>
+
+      <section class="panel expert-promo" aria-label="李泽湘教授专题">
+        <a class="expert-link" href="#">去查看详情 &gt;</a>
+        <div class="expert-visual">
+          <div class="expert-copy">中国科创教父<br>大疆教父<strong>李泽湘教授</strong></div>
+          <div class="expert-portrait" aria-hidden="true">
+            <div class="expert-head"></div>
+            <div class="expert-body"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel rail-card">
+        <h2 class="section-title">社区数据</h2>
+        <div class="stats-grid">
+          <div class="data-box">今日帖子<strong>18</strong></div>
+          <div class="data-box">今日互动量<strong>126</strong></div>
+          <div class="data-box">在线人数<strong>536</strong></div>
+          <div class="data-box">帖子总数<strong>2624</strong></div>
+          <div class="data-box">用户总量<strong>10580</strong></div>
+          <div class="data-box">累计打赏<strong>11096 积分</strong></div>
+        </div>
+      </section>
+
+      <section class="panel rail-card">
+        <h2 class="section-title">任务中心 <small>今日 2/8</small></h2>
+        <div class="task-list">
+          <div class="task"><div>完善个人资料<br><span>+30 经验值</span></div><button type="button">去完成</button></div>
+          <div class="task"><div>每日签到<br><span>+5 经验值，连续 7 天 +20</span></div><button type="button">签到</button></div>
+          <div class="task"><div>申请工程师卡<br><span>开通悬赏回答资格，支持月卡 / 年卡</span></div><button type="button" id="applyEngineer">申请</button></div>
+          <div class="task"><div>上传操作视频<br><span>审核通过奖励 20-50 积分</span></div><button type="button">上传</button></div>
+          <div class="task"><div>3 条高质量资料 / 视频<br><span>每周审核，通过解锁工程师月卡</span></div><button type="button">去上传</button></div>
+          <div class="task"><div>5 条高质量提问<br><span>按热度和人工审核，解锁工程师月卡</span></div><button type="button">去提问</button></div>
+          <div class="task"><div>邀请好友注册<br><span>+20 经验值，好友首帖 / 首答再 +20</span></div><button type="button">邀请</button></div>
+          <div class="task"><div>加入微信交流群<br><span>+10 经验值</span></div><button type="button">加入</button></div>
+        </div>
+      </section>
+
+      <section class="panel rail-card">
+        <h2 class="section-title">问答排行榜 <small>综合榜单</small></h2>
+        <div class="rank-group-title">提问榜</div>
+        <div class="rank-list">
+          <div class="rank-item first"><span class="rank-no">1</span><span><span class="rank-name">冯小测</span><br><span class="rank-score">热度 98 · 提问 12</span></span><strong>榜首</strong></div>
+          <div class="rank-item"><span class="rank-no">2</span><span class="rank-name">设备求助</span><span class="rank-score">热度 85</span></div>
+          <div class="rank-item"><span class="rank-no">3</span><span class="rank-name">现场记录</span><span class="rank-score">内容质量 91</span></div>
+        </div>
+        <div class="rank-group-title">回答榜</div>
+        <div class="rank-list">
+          <div class="rank-item first"><span class="rank-no">1</span><span><span class="rank-name">梁工在现场</span><br><span class="rank-score">回答 8 · 采纳 8</span></span><strong>榜首</strong></div>
+          <div class="rank-item"><span class="rank-no">2</span><span class="rank-name">苏打电源</span><span class="rank-score">回答 12</span></div>
+          <div class="rank-item"><span class="rank-no">3</span><span class="rank-name">周工仪器笔记</span><span class="rank-score">回答 6</span></div>
+        </div>
+      </section>
+
+      <section class="panel rail-card">
+        <h2 class="section-title">本周活动 <small>后台可配置</small></h2>
+        <div class="activity-list">
+          <div class="activity-item">
+            <strong>邀请同行来不凡智库赚积分</strong>
+            <span>邀请工程师注册并完成首帖 / 首答，可获得经验值与积分奖励。</span>
+          </div>
+          <div class="activity-item">
+            <strong>征集新能源、电源、电力电子设备说明书</strong>
+            <span>优先收录可公开来源、供应商授权或用户贡献的资料线索。</span>
+          </div>
+          <div class="activity-item">
+            <strong>高质量操作视频征集</strong>
+            <span>围绕研发、品质、产线、实验室四类场景，每周人工审核发放奖励。</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel rail-card">
+        <h2 class="section-title">打赏记录</h2>
+        <div class="ticker">
+          <div class="ticker-track">
+            <div class="ticker-item">梁工打赏 <strong>20 积分</strong> 给“LLC 轻载啸叫”</div>
+            <div class="ticker-item">苏打电源打赏 <strong>50 积分</strong> 给“温升异常排查”</div>
+            <div class="ticker-item">冯小测获得 <strong>20 积分</strong> 资料奖励</div>
+            <div class="ticker-item">周工上传操作视频获得 <strong>50 积分</strong></div>
+            <div class="ticker-item">梁工打赏 <strong>20 积分</strong> 给“LLC 轻载啸叫”</div>
+            <div class="ticker-item">苏打电源打赏 <strong>50 积分</strong> 给“温升异常排查”</div>
+            <div class="ticker-item">冯小测获得 <strong>20 积分</strong> 资料奖励</div>
+            <div class="ticker-item">周工上传操作视频获得 <strong>50 积分</strong></div>
+          </div>
+        </div>
+      </section>
+    </aside>
+  </div>
+
+  <script>
+    const pointBalance = 320;
+    let hasEngineerCard = false;
+    let currentType = "image";
+    let currentView = "all";
+    let currentSort = "hot";
+
+    const quickText = document.getElementById("quickText");
+    const wordCount = document.getElementById("wordCount");
+    const publishPanel = document.getElementById("publishPanel");
+    const boardSelect = document.getElementById("boardSelect");
+    const publishStatus = document.getElementById("publishStatus");
+    const bountyAmount = document.getElementById("bountyAmount");
+    const imageUploadInput = document.getElementById("imageUploadInput");
+    const videoUploadInput = document.getElementById("videoUploadInput");
+    const imageFileName = document.getElementById("imageFileName");
+    const videoFileName = document.getElementById("videoFileName");
+    const breadcrumb = document.getElementById("breadcrumb");
+    const communityView = document.getElementById("communityView");
+    const allFeedList = document.getElementById("allFeedList");
+    const bountyFeedList = document.getElementById("bountyFeedList");
+    const sortHint = document.getElementById("sortHint");
+    const navViews = Array.from(document.querySelectorAll("[data-view]"));
+
+    function showStatus(type, text) {
+      publishStatus.className = "status show " + type;
+      publishStatus.textContent = text;
+    }
+
+    function setBreadcrumbForView(view) {
+      if (view === "bounty") {
+        breadcrumb.textContent = "当前位置：待解悬赏榜 · 可按热度或发布时间查看悬赏问题";
+        return;
+      }
+      breadcrumb.textContent = "当前位置：全部帖子 · 这里只做聚合展示，发布时请选择具体板块";
+    }
+
+    function syncNavActive(view) {
+      navViews.forEach((item) => item.classList.toggle("active", item.dataset.view === view));
+    }
+
+    function setCommunitySortHint(view, mode) {
+      if (view === "bounty") {
+        sortHint.textContent = mode === "new" ? "正在展示：待解悬赏榜 · 按发布时间排序" : "正在展示：待解悬赏榜 · 按热度排序";
+        return;
+      }
+      sortHint.textContent = mode === "new" ? "正在展示：全部帖子 · 按发布时间排序" : "正在展示：全部帖子 · 热度较高的内容";
+    }
+
+    function sortList(listEl, mode) {
+      const posts = Array.from(listEl.querySelectorAll(".post"));
+      const key = mode === "new" ? "new" : "hot";
+      [...posts]
+        .sort((a, b) => Number(b.dataset[key]) - Number(a.dataset[key]))
+        .forEach((post) => listEl.appendChild(post));
+    }
+
+    function renderCurrentCommunity() {
+      const isBounty = currentView === "bounty";
+      allFeedList.hidden = isBounty;
+      bountyFeedList.hidden = !isBounty;
+      setCommunitySortHint(currentView, currentSort);
+      sortList(isBounty ? bountyFeedList : allFeedList, currentSort);
+    }
+
+    function setView(view) {
+      currentView = view;
+      syncNavActive(view);
+      setBreadcrumbForView(view);
+      communityView.hidden = false;
+      renderCurrentCommunity();
+    }
+
+    function syncBoardHint() {
+      const board = boardSelect.value;
+      if (board === "全部帖子") {
+        breadcrumb.textContent = "当前位置：全部帖子 · 这里只做聚合展示，发布时请选择具体板块";
+        return;
+      }
+      breadcrumb.textContent = "当前位置：" + board + " · 发布后会归入该板块，同时在全部帖子中聚合展示";
+      quickText.placeholder = "正在发布到“" + board + "”：分享/咨询一个问题、经验或项目进展...";
+    }
+
+    function openPublish(type = "image") {
+      publishPanel.classList.add("active");
+      setType(type);
+      syncBoardHint();
+      publishPanel.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function setType(type) {
+      currentType = type;
+      document.querySelectorAll(".type-tab").forEach((tab) => {
+        tab.classList.toggle("active", tab.dataset.type === type);
+      });
+      document.querySelectorAll(".publish-form").forEach((form) => {
+        form.hidden = form.id !== "form-" + type;
+      });
+    }
+
+    quickText.addEventListener("input", () => {
+      wordCount.textContent = quickText.value.length + "/1000";
+    });
+    quickText.addEventListener("focus", () => {
+      publishPanel.classList.add("active");
+    });
+    document.getElementById("openPublish").addEventListener("click", () => openPublish(currentType));
+    document.getElementById("publishTop").addEventListener("click", () => openPublish("image"));
+    document.getElementById("askTop").addEventListener("click", () => openPublish("bounty"));
+
+    document.querySelectorAll("[data-open-type]").forEach((button) => {
+      button.addEventListener("click", () => openPublish(button.dataset.openType));
+    });
+    document.querySelectorAll("[data-upload-trigger]").forEach((button) => {
+      button.addEventListener("click", () => {
+        if (button.dataset.uploadTrigger === "image") imageUploadInput.click();
+        if (button.dataset.uploadTrigger === "video") videoUploadInput.click();
+      });
+    });
+    imageUploadInput.addEventListener("change", () => {
+      imageFileName.textContent = imageUploadInput.files[0] ? "已选择图片：" + imageUploadInput.files[0].name : "支持从本地选择图片文件，提交后作为图片帖展示。";
+    });
+    videoUploadInput.addEventListener("change", () => {
+      videoFileName.textContent = videoUploadInput.files[0] ? "已选择视频：" + videoUploadInput.files[0].name : "支持从本地选择视频文件，提交后作为视频帖展示。操作教程类视频请到共享资料库上传。";
+    });
+    document.querySelectorAll(".type-tab").forEach((tab) => {
+      tab.addEventListener("click", () => setType(tab.dataset.type));
+    });
+    boardSelect.addEventListener("change", () => {
+      syncBoardHint();
+    });
+
+    navViews.forEach((item) => {
+      item.addEventListener("click", (event) => {
+        const view = item.dataset.view;
+        if (!view) return;
+        event.preventDefault();
+        setView(view);
+      });
+    });
+
+    document.querySelectorAll(".js-board").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const board = link.dataset.board;
+        boardSelect.value = board;
+        document.querySelectorAll(".nav-sub").forEach((item) => item.classList.remove("active"));
+        link.classList.add("active");
+        const nextType = "image";
+        openPublish(nextType);
+      });
+    });
+
+    document.getElementById("submitPost").addEventListener("click", () => {
+      const board = boardSelect.value;
+      if (board === "全部帖子") {
+        showStatus("error", "全部帖子只能查看全站内容，不能直接发布。请先选择电源技术区、测试测量等具体板块。");
+        return;
+      }
+      if (currentType === "bounty") {
+        const amount = Number(bountyAmount.value || 0);
+        if (!amount || amount <= 0) {
+          showStatus("error", "请填写悬赏积分。");
+          return;
+        }
+        if (amount > pointBalance) {
+          showStatus("error", "积分余额不足，请先充值或降低悬赏积分。当前可用积分为 " + pointBalance + "。");
+          return;
+        }
+        showStatus("success", "悬赏发布成功");
+        return;
+      }
+      if (currentType === "image" && !imageUploadInput.files.length) {
+        showStatus("error", "请先选择图片文件。");
+        return;
+      }
+      if (currentType === "video" && !videoUploadInput.files.length) {
+        showStatus("error", "请先选择视频文件。");
+        return;
+      }
+      showStatus("success", "发布成功，内容已归入“" + board + "”，同时会在全部帖子中展示。");
+    });
+
+    document.getElementById("applyEngineer").addEventListener("click", () => {
+      hasEngineerCard = true;
+      alert("已提交工程师卡申请。审核通过后可回答悬赏问题，也可通过贡献、商城消费或购买月卡 / 年卡获得。");
+    });
+
+    const tabs = document.querySelectorAll(".tab");
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        currentSort = tab.dataset.sort;
+        tabs.forEach((item) => item.classList.toggle("active", item === tab));
+        renderCurrentCommunity();
+      });
+    });
+
+    setView("all");
+  </script>
+</body>
+</html>

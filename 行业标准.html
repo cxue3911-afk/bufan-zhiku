@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>行业标准 - 共享资料区</title>
+  <style>
+    :root{--bg:#eef2f6;--panel:#fff;--line:#e3e7ee;--text:#1f2937;--muted:#64748b;--blue:#1677ff;--red:#df1d2d;--max:1280px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:15px;line-height:1.6}a{text-decoration:none;color:inherit}.topbar{height:64px;background:#fff}.topbar-inner{width:min(var(--max),calc(100vw - 48px));height:64px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.brand{font-size:28px;font-weight:900;color:var(--blue)}.nav{display:flex;gap:28px;font-size:18px}.actions{display:flex;gap:12px;align-items:center}.btn{height:38px;border:1px solid var(--blue);color:var(--blue);background:#fff;border-radius:4px;padding:0 16px;display:inline-flex;align-items:center;font-weight:800}.btn.primary{background:var(--blue);color:#fff}.wrap{width:min(var(--max),calc(100vw - 48px));margin:18px auto 48px}.crumb{margin:0 0 18px;color:var(--muted)}.panel{background:#fff;border-radius:4px;padding:24px;margin-bottom:18px}.title{font-size:24px;font-weight:900;margin:0 0 14px}.filters{display:grid;gap:14px;margin-bottom:20px}.filter-row{display:flex;gap:16px;flex-wrap:wrap}.filter-row strong{min-width:86px}.filter-row a{color:var(--blue);font-weight:700}.filter-row a.active{color:#fff;background:var(--blue);border-radius:999px;padding:0 10px}.upload-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{display:grid;gap:6px;font-weight:800}.field input,.field textarea,.field select{border:1px solid #d9dfe8;border-radius:4px;padding:8px 10px}.field textarea{min-height:80px;resize:vertical}.field.full{grid-column:1 / -1}.upload-note{margin-top:10px;color:var(--muted)}.lists{display:grid;grid-template-columns:1fr 1fr;gap:20px}.box{background:#f8fafc;border-radius:4px;padding:18px}.box h2{margin:0 0 12px;border-left:4px solid var(--blue);padding-left:10px;font-size:20px}.box li{margin:14px 0}.file-list{margin-top:20px;border:1px solid var(--line);border-radius:4px;overflow:hidden}.file-row{display:grid;grid-template-columns:minmax(0,1fr) 110px 120px 80px;gap:12px;padding:12px 14px;border-bottom:1px solid var(--line);background:#fff;align-items:center}.file-row:nth-child(odd){background:#fbfcfe}.file-row:last-child{border-bottom:0}.file-row span{color:var(--muted)}.tag{display:inline-flex;align-items:center;justify-content:center;height:24px;border-radius:999px;background:#eef5ff;color:var(--blue);font-size:12px;font-weight:800}@media(max-width:900px){.topbar{height:auto}.topbar-inner{height:auto;padding:12px 0;align-items:flex-start;flex-direction:column}.nav,.actions{flex-wrap:wrap}.lists,.upload-grid{grid-template-columns:1fr}.file-row{grid-template-columns:1fr}.wrap,.topbar-inner{width:calc(100vw - 24px)}}
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="共享资料区.html">资料中心</a>
+      <nav class="nav"><a>标准库</a><a>文档库</a><a>谱图库</a></nav>
+      <div class="actions"><a href="#">论文索引</a><a href="#">今日免费资料</a><a class="btn primary" href="#uploadStandard">上传标准</a><a class="btn" href="#">我的下载</a></div>
+    </div>
+  </header>
+  <main class="wrap">
+    <p class="crumb">当前位置：首页 &gt; 资料中心 &gt; 行业标准</p>
+    <section class="panel" id="uploadStandard">
+      <h1 class="title">上传行业标准</h1>
+      <div class="upload-grid">
+        <label class="field">标准名称<input placeholder="例如：储能系统测试标准索引" /></label>
+        <label class="field">应用分类<select><option>研发</option><option>品质</option><option>产线</option><option>实验室</option></select></label>
+        <label class="field">标准分类<select><option>国家标准</option><option>行业标准</option><option>企业标准</option><option>团体标准</option><option>地方标准</option><option>国外标准</option><option>其他标准</option></select></label>
+        <label class="field">行业分类<input placeholder="例如：能源、半导体、车辆、电气、机械" /></label>
+        <label class="field full">来源说明<input placeholder="说明公开来源、索引地址或授权情况" /></label>
+        <label class="field full">资料说明<textarea placeholder="说明标准适用范围、关键条款、可用于哪些测试或验证场景"></textarea></label>
+        <label class="field full">文件上传<input type="file" /></label>
+      </div>
+      <div class="upload-note">行业标准优先展示公开目录、索引和线索。完整文件需注意版权与授权范围。</div>
+    </section>
+    <section class="panel">
+      <h1 class="title">标准库</h1>
+      <div class="filters">
+        <div class="filter-row"><strong>应用分类：</strong><a class="active">全部</a><a>研发</a><a>品质</a><a>产线</a><a>实验室</a></div>
+        <div class="filter-row"><strong>标准分类：</strong><a>国家标准</a><a>行业标准</a><a>企业标准</a><a>团体标准</a><a>地方标准</a><a>国外标准</a><a>其他标准</a></div>
+        <div class="filter-row"><strong>行业分类：</strong><a>能源</a><a>半导体</a><a>车辆</a><a>电气</a><a>机械</a><a>测试仪器</a><a>连接器</a><a>电源负载</a></div>
+      </div>
+      <div class="lists">
+        <div class="box"><h2>最新标准</h2><ul><li>GB/T 32363.1-2026 塑料 聚酰胺材料测试要求</li><li>GB/T 15076.15-2026 钽铌化学分析方法</li><li>GB/T 8924-2026 纤维增强塑料燃烧性能试验方法</li><li>GB/T 16866-2026 铜及铜合金无缝管材尺寸要求</li></ul></div>
+        <div class="box"><h2>本月热门标准</h2><ul><li>GB/T 46877-2025 二氧化碳捕集系统通用要求</li><li>GB/T 14480.3-2020 无损检测仪器 涡流检测设备</li><li>YS/T 70-2015 粗铜</li><li>GB/T 4623-2025 环形混凝土电杆</li></ul></div>
+      </div>
+      <div class="file-list">
+        <div class="file-row"><strong>储能系统测试标准索引</strong><span>标准目录</span><span class="tag">研发</span><a href="#">查看</a></div>
+        <div class="file-row"><strong>电源可靠性测试标准清单</strong><span>行业标准</span><span class="tag">品质</span><a href="#">查看</a></div>
+        <div class="file-row"><strong>产线安规测试参考规范</strong><span>线索征集</span><span class="tag">产线</span><a href="#">查看</a></div>
+        <div class="file-row"><strong>实验室仪器校准标准汇总</strong><span>公开索引</span><span class="tag">实验室</span><a href="#">查看</a></div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

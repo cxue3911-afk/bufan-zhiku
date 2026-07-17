@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>我的主页 - 不凡智库社区</title>
+  <style>
+    :root{--bg:#f4f6f8;--panel:#fff;--line:#e5e9ef;--text:#20242a;--muted:#6d7480;--red:#df1d2d;--blue:#246bfe;--soft-red:#fff2f3;--max:980px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:14px;line-height:1.55}a{color:inherit;text-decoration:none}.topbar{height:64px;background:#fff;border-bottom:1px solid var(--line)}.topbar-inner{width:min(var(--max),calc(100vw - 40px));height:64px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.brand{font-weight:900;color:var(--red);font-size:20px}.btn{height:34px;border:1px solid var(--line);border-radius:6px;background:#fff;padding:0 12px;display:inline-flex;align-items:center;justify-content:center}.btn.primary{background:var(--red);color:#fff;border-color:var(--red);font-weight:700}.wrap{width:min(var(--max),calc(100vw - 40px));margin:18px auto 48px;display:grid;gap:14px}.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(23,31,42,.06)}.profile{padding:24px;display:grid;grid-template-columns:86px minmax(0,1fr) 170px;gap:18px;align-items:center}.avatar{width:86px;height:86px;border-radius:50%;background:linear-gradient(135deg,#eaf1ff,#fff2f3);display:grid;place-items:center;color:var(--blue);font-size:28px;font-weight:900;border:1px solid #dbe6ff}.profile h1{margin:0 0 4px;font-size:24px}.profile p{margin:0;color:var(--muted)}.level{color:var(--blue);font-weight:800}.stats{display:flex;gap:28px;margin-top:16px;flex-wrap:wrap}.stats strong{display:block;color:var(--red);font-size:20px}.stats span{color:var(--muted);font-size:12px}.balance-link{border:1px solid #ffd7dc;border-radius:8px;background:var(--soft-red);padding:14px;display:grid;gap:8px}.balance-link span{color:var(--muted);font-size:12px}.balance-link strong{color:var(--red);font-size:24px;line-height:1}.balance-link em{font-style:normal;color:var(--red);font-weight:800}.content{display:grid;grid-template-columns:170px minmax(0,1fr);gap:14px}.tabs{padding:14px}.tabs a{height:42px;border-radius:6px;padding:0 12px;display:flex;align-items:center}.tabs a.active{background:var(--red);color:#fff;font-weight:700}.posts{padding:18px;min-height:260px}.post{padding:14px 0;border-bottom:1px solid var(--line)}.post h3{margin:0 0 6px}.post p{margin:0;color:var(--muted)}.empty{height:120px;display:grid;place-items:center;color:var(--muted)}@media(max-width:760px){.profile,.content{grid-template-columns:1fr}.topbar-inner{width:calc(100vw - 24px)}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="不凡智库工程师社区首页原型.html">不凡智库社区</a><a class="btn primary" href="不凡智库工程师社区首页原型.html">返回首页</a></div></header>
+  <main class="wrap">
+    <section class="panel profile">
+      <div class="avatar">鱼</div>
+      <div>
+        <h1>鱼皮花生酱</h1>
+        <p>身份：普通会员 · <span class="level">Lv.2 见习工程师</span></p>
+        <div class="stats">
+          <div><strong>180</strong><span>经验值</span></div>
+          <div><strong>12</strong><span>粉丝</span></div>
+          <div><strong>8</strong><span>获赞</span></div>
+          <div><strong>19</strong><span>阅读</span></div>
+          <div><strong>6</strong><span>收藏</span></div>
+        </div>
+      </div>
+      <a class="balance-link" href="账户明细.html">
+        <span>账户积分</span>
+        <strong>260 积分</strong>
+        <em>查看账户明细</em>
+      </a>
+    </section>
+    <section class="content">
+      <aside class="panel tabs">
+        <a class="active" href="#">我的帖子</a>
+        <a href="#">我的问答</a>
+        <a href="#">我的评论</a>
+        <a href="#">我的收藏</a>
+        <a href="#">互动列表</a>
+        <a href="账户明细.html">账户明细</a>
+      </aside>
+      <div class="panel posts">
+        <article class="post"><h3>电源样机轻载啸叫，有没有推荐的排查顺序？</h3><p>电源技术区 · 回复 6 · 获赞 8 · 经验 +15</p></article>
+        <article class="post"><h3>收藏：锂电测试常见术语表</h3><p>非技术交流区 / 共享资料区 · 免费资料 · 已收藏</p></article>
+        <div class="empty">更多主页数据可在后续接入真实后台后展示</div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

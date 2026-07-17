@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>不凡智库名师专家库</title>
+  <style>
+    :root{--bg:#f5f6f8;--panel:#fff;--line:#e6e9ef;--text:#20242a;--muted:#6f7784;--red:#df1d2d;--red-soft:#fff1f3;--blue:#246bfe;--blue-soft:#eef4ff;--green:#0f9f6e;--shadow:0 8px 24px rgba(23,31,42,.06);--radius:8px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:14px;line-height:1.55}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}.topbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}.topbar-inner{width:min(1280px,calc(100vw - 40px));height:64px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{display:flex;align-items:center;gap:10px}.brand-mark{width:42px;height:42px;border-radius:8px;border:1px solid #f0c5ca;background:linear-gradient(135deg,rgba(223,29,45,.14),rgba(36,107,254,.08)),#fff;display:grid;place-items:center}.brand-mark::before{content:"";width:25px;height:17px;border:3px solid var(--red);border-left-width:7px;transform:skewX(-14deg)}.brand-title{display:block;color:var(--red);font-weight:900;font-size:19px}.brand-subtitle{display:block;color:#34506d;font-size:12px;margin-top:-2px}.btn{height:36px;border:1px solid var(--line);border-radius:6px;padding:0 13px;display:inline-flex;align-items:center;justify-content:center;background:#fff;color:var(--text);white-space:nowrap}.btn.primary{background:var(--red);color:#fff;border-color:var(--red);font-weight:800}.page{width:min(1280px,calc(100vw - 40px));margin:18px auto 48px;display:grid;grid-template-columns:220px minmax(0,1fr);gap:14px;align-items:start}.panel{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}.side{position:sticky;top:82px;padding:12px}.side-title{font-weight:900;margin:4px 0 10px}.side a{height:38px;border-radius:6px;padding:0 10px;display:flex;align-items:center;margin:4px 0;color:#3f4854}.side a.active,.side a:hover{background:var(--red-soft);color:var(--red);font-weight:900}.main{display:grid;gap:14px;min-width:0}.section{padding:16px}.title-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.title-row h1,.title-row h2{margin:0;font-size:18px}.title-row small{color:var(--muted);font-size:12px}.tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.tab{height:40px;border:1px solid var(--line);background:#fff;color:#3f4854;border-radius:8px;padding:0 12px}.tab.active{background:var(--red);border-color:var(--red);color:#fff;font-weight:900}.summary-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 18px;margin-top:12px}.summary-item{border:0;background:transparent;padding:0;display:flex;align-items:flex-start;gap:8px;min-width:0;color:#1f2d3d;font-size:14px;line-height:1.5;text-align:left}.summary-item:hover .summary-text{color:var(--red);text-decoration:underline}.summary-dot{width:9px;height:9px;border-radius:50%;background:var(--red);margin-top:7px;flex:0 0 auto}.summary-text{min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin-top:12px}.date-card{border:1px solid var(--line);background:#fff;color:#3f4854;border-radius:8px;padding:9px 8px;min-height:78px;text-align:center}.date-card strong{display:block;font-size:16px;margin:3px 0}.date-card.has-slot{background:var(--blue-soft);border-color:#bcd1ff;color:var(--blue)}.date-card.active{background:var(--red-soft);border-color:#ffcbd2;color:var(--red);font-weight:900}.date-card .left{font-size:12px;color:inherit}.expert-grid{display:grid;gap:12px;margin-top:12px}.expert-card{border:1px solid var(--line);border-radius:8px;padding:14px;background:#fff;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}.expert-card.focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(223,29,45,.08)}.expert-name{font-weight:900;font-size:16px;margin-bottom:4px}.expert-org{color:#4a5563;font-size:13px;margin-bottom:6px}.expert-desc{color:var(--muted);font-size:12px}.badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}.badge{height:22px;border-radius:999px;background:var(--blue-soft);color:var(--blue);border:1px solid #d8e5ff;padding:0 8px;font-size:12px;display:inline-flex;align-items:center;font-weight:800}.badge.free{background:#eefaf5;border-color:#cdeedd;color:var(--green)}.hint{color:var(--muted);font-size:12px;margin-top:8px}.booking{display:grid;gap:12px}.slots{display:grid;grid-template-columns:1fr 1fr;gap:8px}.slot{border:1px solid var(--line);border-radius:8px;background:#fff;padding:10px;text-align:center}.slot.active{border-color:var(--red);background:var(--red-soft);color:var(--red);font-weight:900}.paybox{border:1px solid #f1d3d7;background:#fff8f9;border-radius:8px;padding:12px}.paybox-head{font-weight:900;margin-bottom:8px}.payrow{display:flex;justify-content:space-between;gap:12px;font-size:13px;padding:4px 0;color:#3f4854}.payrow strong{color:var(--red)}.form{display:grid;gap:10px}.field{display:grid;gap:6px;color:#3f4854;font-size:13px}.field input,.field textarea,.field select{width:100%;border:1px solid #d9dfe8;border-radius:6px;padding:9px 10px;outline:none;background:#fff}.field textarea{min-height:90px;resize:vertical}.notice{padding:10px 12px;background:var(--blue-soft);border:1px solid #d8e5ff;border-radius:8px;color:#174ea6;font-size:13px}.empty{padding:28px 16px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:8px;background:#fff}@media(max-width:1050px){.page{grid-template-columns:1fr}.side{position:static}.tabs,.summary-list{grid-template-columns:1fr}.week{grid-template-columns:repeat(2,minmax(0,1fr))}.expert-card{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="不凡智库工程师社区首页原型.html"><span class="brand-mark"></span><span><span class="brand-title">不凡智库</span><span class="brand-subtitle">名师专家库</span></span></a><a class="btn" href="不凡智库工程师社区首页原型.html">返回首页</a></div></header>
+  <main class="page">
+    <aside class="panel side">
+      <div class="side-title">名师专家</div>
+      <a href="#professor" data-cat="professor" class="active">名校教授</a>
+      <a href="#technical" data-cat="technical">技术专家</a>
+      <a href="#industry" data-cat="industry">产业专家</a>
+    </aside>
+    <div class="main">
+      <section class="panel section">
+        <div class="title-row"><h1>专家库</h1><small>名校教授、产业专家收费暂定；技术专家免费</small></div>
+        <div class="tabs">
+          <button class="tab active" data-cat="professor" type="button">名校教授</button>
+          <button class="tab" data-cat="technical" type="button">技术专家</button>
+          <button class="tab" data-cat="industry" type="button">产业专家</button>
+        </div>
+        <div class="summary-list" id="expertSummary"></div>
+      </section>
+      <section class="panel section">
+        <div class="title-row"><h2>日期选择</h2><small id="listHint">按周展示可预约名额</small></div>
+        <div class="week" id="week"></div>
+        <div class="hint">蓝色日期表示当天有可预约名额；点击日期后，下方会切换为该日期可约专家。</div>
+      </section>
+      <section class="panel section" id="expertDetail">
+        <div class="title-row"><h2 id="listTitle">可预约专家</h2><small>点击专家库姓名可跳转到对应简介</small></div>
+        <div class="expert-grid" id="expertList"></div>
+      </section>
+      <section class="panel section booking">
+        <div class="title-row"><h2>预约申请</h2><small>提交后由运营人工确认</small></div>
+        <div class="slots">
+          <button class="slot active" type="button">上午 09:00-11:30</button>
+          <button class="slot" type="button">下午 14:00-16:30</button>
+          <button class="slot" type="button">晚上 19:00-21:00</button>
+          <button class="slot" type="button">一对一另约</button>
+        </div>
+        <div class="paybox">
+          <div class="paybox-head">付费信息</div>
+          <div class="payrow"><span>名校教授 / 产业专家</span><strong>收费暂定</strong></div>
+          <div class="payrow"><span>技术专家</span><strong>免费</strong></div>
+          <div class="hint">预约阶段暂不接入真实支付，运营确认专家、时间和收费标准后再完成后续安排。</div>
+        </div>
+        <form class="form">
+          <label class="field">预约专家<select id="expertSelect"></select></label>
+          <label class="field">付费确认<select><option>按专家类型自动判断</option><option>先确认收费再预约</option><option>提交后由运营确认</option></select></label>
+          <label class="field">预约类型<select><option>线上咨询</option><option>专题讨论</option><option>资料预审</option><option>线下见面</option></select></label>
+          <label class="field">机构 / 团队名称<input placeholder="例如：高校团队 / 企业研发部" /></label>
+          <label class="field">联系手机号<input placeholder="用于预约确认" /></label>
+          <label class="field">需求描述<textarea placeholder="说明项目背景、咨询问题、希望专家解决的关键点"></textarea></label>
+          <button class="btn primary" type="button" id="submitReserve">提交预约申请</button>
+        </form>
+        <div class="notice">预约提交后会由运营人工对接专家，确认最终时间、沟通方式和付费信息。</div>
+      </section>
+    </div>
+  </main>
+  <script>
+    const days = [
+      { date: '07-14', week: '周二' }, { date: '07-15', week: '周三' }, { date: '07-16', week: '周四' },
+      { date: '07-17', week: '周五' }, { date: '07-18', week: '周六' }, { date: '07-19', week: '周日' }, { date: '07-20', week: '周一' }
+    ];
+    const experts = {
+      professor: [
+        { name: '戴欣博士', org: '中国科学院微生物研究所副研究员、中国科学院大学岗位教授', intro: '研究极端环境微生物分子生态学，关注深海微生物资源开发、瘤胃纤维素降解相关基因生态功能等方向。', dates: ['07-14','07-16','07-18'] },
+        { name: '杨柏儒', org: '中山大学电子与信息工程学院教授', intro: '电子信息与工程技术方向，可参与产学研项目论证和技术问题咨询。', dates: ['07-15','07-17'] },
+        { name: '苏言杰', org: '上海交通大学电子信息与电气工程学院微纳电子学系研究员', intro: '微纳电子、芯片器件、科研项目咨询。', dates: ['07-16','07-20'] },
+        { name: '曹云飞', org: '华南理工大学副教授', intro: '电子信息、技术转化、科研合作咨询。', dates: ['07-14','07-19'] },
+        { name: '赵克刚', org: '华南理工大学副教授', intro: '工程技术、测试测量、产业协同咨询。', dates: ['07-15','07-18'] },
+        { name: '袁柏华', org: '上海交通大学教授', intro: '电子信息、产业课题、技术路线咨询。', dates: ['07-17'] },
+        { name: '朱昆', org: '北京大学物理学院教授', intro: '物理方向、前沿科研、技术问题咨询。', dates: ['07-16','07-19'] },
+        { name: '颜学庆', org: '北京大学物理学院副院长', intro: '物理学、科研平台、学术合作咨询。', dates: ['07-18'] },
+        { name: '刘华', org: '广州大学教授', intro: '科研项目、学术合作、技术评估咨询。', dates: ['07-14','07-20'] },
+        { name: '郑建华', org: '清华大学教授', intro: '高端制造、科研合作、技术路线咨询。', dates: ['07-15','07-17'] }
+      ],
+      technical: [
+        { name: '于洪波', org: '苏州韦特克斯电子科技有限公司', intro: '直流电源行业应用专家，毕业于上海交通大学。', dates: ['07-14','07-16'] },
+        { name: '徐晨', org: '宝工实业股份有限公司', intro: '电子五金工具应用工程师。', dates: ['07-15'] },
+        { name: '钟惠', org: '宝工实业股份有限公司', intro: '10多年电子五金工具应用经验。', dates: ['07-16','07-18'] },
+        { name: '萧嘉雯', org: '宝工实业股份有限公司', intro: '电子五金工具应用工程师。', dates: ['07-17'] },
+        { name: '黎广', org: '广勤电子科技有限公司', intro: '电子负载行业应用专家。', dates: ['07-14','07-19'] },
+        { name: '商静雷', org: '泰州市速力达工具有限公司', intro: '电批 / 智能电批行业应用专家。', dates: ['07-15','07-20'] },
+        { name: '丁悠达', org: '优利德科技（中国）股份有限公司高级应用工程师', intro: '精通各类测试仪器使用场景，具备大量一线现场经验。', dates: ['07-16','07-18'] },
+        { name: '庹发良', org: '深圳市美瑞克电子科技有限公司', intro: '30年安规类产品行业应用经验。', dates: ['07-17','07-20'] },
+        { name: '崔金光', org: '苏州美恩斯电子科技有限公司', intro: '10余年直流电源、电源负载、功率计行业应用经验。', dates: ['07-14','07-18'] },
+        { name: '王留琴', org: '快克智能装备股份有限公司', intro: '10多年焊接工具行业应用经验。', dates: ['07-15','07-19'] },
+        { name: '张卫华', org: '快克智能装备股份有限公司', intro: '10多年焊接工具行业应用经验。', dates: ['07-16'] },
+        { name: '石洪彬', org: '深圳市深丝微智能技术有限公司', intro: '擅长汽车装配、数字能源、3C制造行业的智能电批应用。', dates: ['07-17'] },
+        { name: '王学军', org: '深圳市鑫诺尔科技有限公司', intro: '20年测试仪器、电源、负载、功率计行业应用经验。', dates: ['07-18','07-20'] },
+        { name: '马伟涛', org: '优利德高级应用工程师', intro: '10年硬件测试经验，精通各类仪器使用场景。', dates: ['07-14','07-19'] },
+        { name: '安伟', org: '人工智能高级工程师（副高）', intro: '人工智能、算法应用、工程化落地咨询。', dates: ['07-15','07-20'] }
+      ],
+      industry: [
+        { name: '彭光法', org: 'NPI 高级工程师', intro: '新产品导入、工艺评估、量产协同。', dates: ['07-14','07-16'] },
+        { name: '何茂添', org: '工程及自动化领域高级工程师', intro: '自动化产线、工程改造、设备调试。', dates: ['07-15','07-18'] },
+        { name: '黄庆', org: '仪器测试领域技术专家', intro: '仪器测试、现场排查、测试流程优化。', dates: ['07-14','07-17'] },
+        { name: '蒋雲', org: '广东省连接器协会 / 广东省电线电缆行业协会会员部部长', intro: '连接器、电线电缆、产业资源对接。', dates: ['07-16','07-19'] },
+        { name: '王小岭', org: '产业专家', intro: '工程问题诊断、技术咨询、项目协同。', dates: ['07-20'] }
+      ]
+    };
+    const names = { professor: '名校教授', technical: '技术专家', industry: '产业专家' };
+    const weekEl = document.getElementById('week');
+    const summaryEl = document.getElementById('expertSummary');
+    const listEl = document.getElementById('expertList');
+    const selectEl = document.getElementById('expertSelect');
+    const listTitleEl = document.getElementById('listTitle');
+    const listHintEl = document.getElementById('listHint');
+    let currentCat = location.hash.replace('#','') || 'professor';
+    if (!experts[currentCat]) currentCat = 'professor';
+    let currentDate = firstAvailableDate(currentCat);
+    let selectedExpert = '';
+    function firstAvailableDate(cat){return days.find(d => experts[cat].some(e => e.dates.includes(d.date)))?.date || days[0].date}
+    function hasSlot(cat, day){return experts[cat].some(e => e.dates.includes(day))}
+    function feeText(cat){return cat === 'technical' ? '免费' : '收费暂定'}
+    function renderSummary(){
+      summaryEl.innerHTML = experts[currentCat].map(e => '<button class="summary-item" type="button" data-jump="'+e.name+'"><span class="summary-dot"></span><span class="summary-text">'+e.name+' · '+e.org+'</span></button>').join('');
+      summaryEl.querySelectorAll('[data-jump]').forEach(btn => btn.addEventListener('click', () => jumpToExpert(btn.dataset.jump)));
+    }
+    function renderWeek(){
+      weekEl.innerHTML = days.map(d => {
+        const active = d.date === currentDate ? 'active' : '';
+        const slot = hasSlot(currentCat, d.date) ? 'has-slot' : '';
+        const state = hasSlot(currentCat, d.date) ? '有名额' : '暂无';
+        return '<button class="date-card '+active+' '+slot+'" data-date="'+d.date+'" type="button">'+d.date+'<strong>'+d.week+'</strong><span class="left">'+state+'</span></button>';
+      }).join('');
+      weekEl.querySelectorAll('.date-card').forEach(btn => btn.addEventListener('click', () => { currentDate = btn.dataset.date; renderList(); }));
+    }
+    function renderList(){
+      const list = experts[currentCat].filter(e => e.dates.includes(currentDate));
+      listTitleEl.textContent = names[currentCat] + ' · ' + currentDate;
+      listHintEl.textContent = list.length ? '可预约 ' + list.length + ' 位专家' : '暂无可约专家';
+      selectEl.innerHTML = experts[currentCat].map(e => '<option value="'+e.name+'">'+e.name+' - '+e.org+'</option>').join('');
+      if (!selectedExpert || !experts[currentCat].some(e => e.name === selectedExpert)) selectedExpert = list[0]?.name || experts[currentCat][0]?.name || '';
+      if (selectedExpert) selectEl.value = selectedExpert;
+      if (!list.length) { listEl.innerHTML = '<div class="empty">当天暂无可预约专家，请切换上方日期或更换分类。</div>'; return; }
+      listEl.innerHTML = list.map(e => '<article class="expert-card" id="expert-'+e.name+'"><div><div class="expert-name">'+e.name+'</div><div class="expert-org">'+e.org+'</div><div class="expert-desc">'+e.intro+'</div><div class="badges"><span class="badge">'+names[currentCat]+'</span><span class="badge '+(currentCat === 'technical' ? 'free' : '')+'">'+feeText(currentCat)+'</span><span class="badge">'+e.dates.join(' / ')+' 可约</span></div></div><div><button class="btn primary" type="button" data-name="'+e.name+'">预约</button></div></article>').join('');
+      listEl.querySelectorAll('[data-name]').forEach(btn => btn.addEventListener('click', () => { selectedExpert = btn.dataset.name; selectEl.value = selectedExpert; document.querySelector('.booking').scrollIntoView({behavior:'smooth', block:'start'}); }));
+    }
+    function render(){
+      document.querySelectorAll('[data-cat]').forEach(el => el.classList.toggle('active', el.dataset.cat === currentCat));
+      currentDate = currentDate && hasSlot(currentCat, currentDate) ? currentDate : firstAvailableDate(currentCat);
+      renderSummary(); renderWeek(); renderList();
+    }
+    function jumpToExpert(name){
+      const expert = experts[currentCat].find(e => e.name === name);
+      if (!expert) return;
+      selectedExpert = name;
+      currentDate = expert.dates[0];
+      renderWeek(); renderList();
+      const card = document.getElementById('expert-'+name);
+      if (card) { card.classList.add('focus'); card.scrollIntoView({behavior:'smooth', block:'center'}); setTimeout(() => card.classList.remove('focus'), 1600); }
+    }
+    document.querySelectorAll('[data-cat]').forEach(el => el.addEventListener('click', ev => { ev.preventDefault(); currentCat = el.dataset.cat; location.hash = currentCat; currentDate = firstAvailableDate(currentCat); selectedExpert = experts[currentCat][0]?.name || ''; render(); }));
+    document.querySelectorAll('.slot').forEach(btn => btn.addEventListener('click', () => { document.querySelectorAll('.slot').forEach(i => i.classList.remove('active')); btn.classList.add('active'); }));
+    selectEl.addEventListener('change', () => { selectedExpert = selectEl.value; });
+    document.getElementById('submitReserve').addEventListener('click', () => { alert('预约申请已提交，运营会按当前可约信息为你安排专家对接。'); });
+    render();
+  </script>
+</body>
+</html>

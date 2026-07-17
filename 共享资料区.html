@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>共享资料区 - 不凡智库社区</title>
+  <style>
+    :root{--bg:#f3f4f6;--panel:#fff;--line:#e3e7ee;--text:#222833;--muted:#6d7582;--red:#df1d2d;--blue:#1677ff;--max:1180px;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-size:14px;line-height:1.55}a{text-decoration:none;color:inherit}.topbar{height:58px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}.topbar-inner{width:min(var(--max),calc(100vw - 40px));height:58px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.brand{color:var(--red);font-size:19px;font-weight:900}.btn{height:32px;border:1px solid var(--line);border-radius:4px;background:#fff;padding:0 12px;display:inline-flex;align-items:center;font-weight:700}.btn.primary{background:var(--red);border-color:var(--red);color:#fff}.wrap{width:min(var(--max),calc(100vw - 40px));margin:16px auto 48px}.hero{background:linear-gradient(90deg,#0a60dc,#1088ff);color:#fff;border-radius:4px;padding:28px 30px;margin-bottom:14px}.hero h1{margin:0 0 8px;font-size:28px}.hero p{margin:0;color:rgba(255,255,255,.9)}.panel{background:var(--panel);border:1px solid var(--line);border-radius:4px}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;padding:18px}.card{min-height:230px;border:1px solid var(--line);border-radius:6px;background:#fff;overflow:hidden;display:grid;grid-template-rows:112px 1fr;transition:.18s}.card:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(20,30,50,.08)}.cover{padding:18px;color:#fff;display:flex;flex-direction:column;justify-content:flex-end}.video{background:linear-gradient(135deg,#006df0,#10a3ff)}.manual{background:linear-gradient(135deg,#df1d2d,#ff7b53)}.standard{background:linear-gradient(135deg,#1b4f9c,#0f9f6e)}.body{padding:16px}.body h2{margin:0 0 8px;font-size:18px}.body p{margin:0 0 14px;color:var(--muted)}.meta{display:flex;gap:8px;flex-wrap:wrap}.tag{height:24px;border-radius:999px;padding:0 9px;background:#eef5ff;color:var(--blue);display:inline-flex;align-items:center;font-weight:800;font-size:12px}.notice{margin-top:14px;padding:14px 16px;color:#8a1520;background:#fff1f3;border:1px solid #ffd7dc;border-radius:4px}@media(max-width:860px){.cards{grid-template-columns:1fr}.topbar{height:auto}.topbar-inner{height:auto;padding:10px 0;gap:10px;align-items:flex-start;flex-direction:column;width:calc(100vw - 24px)}.wrap{width:calc(100vw - 24px)}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="topbar-inner"><a class="brand" href="不凡智库工程师社区首页原型.html">不凡智库社区</a><div><a class="btn" href="我的主页.html">我的主页</a> <a class="btn primary" href="不凡智库工程师社区首页原型.html">返回首页</a></div></div></header>
+  <main class="wrap">
+    <section class="hero">
+      <h1>共享资料区</h1>
+      <p>围绕工程师高频需求沉淀操作视频、设备说明书和行业标准，统一按研发、品质、产线、实验室四个板块分类浏览。</p>
+    </section>
+    <section class="panel cards">
+      <a class="card" href="操作视频.html">
+        <div class="cover video"><strong>操作视频</strong><span>研发 / 品质 / 产线 / 实验室</span></div>
+        <div class="body"><h2>查看操作视频</h2><p>按四类业务场景筛选视频内容，支持上传操作视频和查看详情。</p><div class="meta"><span class="tag">视频</span><span class="tag">四类分类</span></div></div>
+      </a>
+      <a class="card" href="设备说明书.html">
+        <div class="cover manual"><strong>设备说明书</strong><span>研发 / 品质 / 产线 / 实验室</span></div>
+        <div class="body"><h2>查找设备说明书</h2><p>按四类场景组织设备说明书，便于工程师快速定位对应资料。</p><div class="meta"><span class="tag">说明书</span><span class="tag">可上传</span></div></div>
+      </a>
+      <a class="card" href="行业标准.html">
+        <div class="cover standard"><strong>行业标准</strong><span>研发 / 品质 / 产线 / 实验室</span></div>
+        <div class="body"><h2>查看行业标准</h2><p>在标准分类、行业分类之外，增加业务场景筛选，便于按测试和应用场景查找标准。</p><div class="meta"><span class="tag">标准库</span><span class="tag">公开索引</span></div></div>
+      </a>
+    </section>
+    <div class="notice">说明：行业标准优先展示公开目录、索引和线索，完整文件需注意版权与授权范围。</div>
+  </main>
+</body>
+</html>
